@@ -27,6 +27,15 @@ public class Diseñador extends Trabajador {
 		this.tipo = tipo;
 	}
 
+
+	public ArrayList<String> getIdProyectos() {
+		return idProyectos;
+	}
+
+	public void setIdProyectos(ArrayList<String> idProyectos) {
+		this.idProyectos = idProyectos;
+	}
+	
 	@Override
 	public String get() {
 		// TODO Auto-generated method stub

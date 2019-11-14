@@ -22,11 +22,17 @@ public class Planificador extends Trabajador {
 		this.cantDias = cantDias;
 	}
 
+	public ArrayList<String> getIdProyectos() {
+		return idProyectos;
+	}
+
+	public void setIdProyectos(ArrayList<String> idProyectos) {
+		this.idProyectos = idProyectos;
+	}
+	
 	@Override
 	public String get() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
 }
