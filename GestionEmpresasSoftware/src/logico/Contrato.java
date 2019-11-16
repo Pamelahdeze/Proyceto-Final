@@ -1,37 +1,24 @@
 package logico;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Contrato {
-
-	private ArrayList<Cliente> misClientes;
-	private ArrayList<Trabajador> misTrabajadores;
+	private String identificador;
+	private Proyecto proyecto;
+	private Cliente cliente;
 	private Date fechaInicio;
-	private Date fechaEntrega;
-	private String identificadorContrato;
-	private String identificadorCliente;
+	private Date fechaEntrega;	
 	private Date fechaProrroga;
 	
-	public Contrato(ArrayList<Cliente> misClientes, ArrayList<Trabajador> misTrabajadores, Date fechaInicio, Date fechaEntrega, String identificadorContrato,
-			String identificadorCliente, Date fechaProrroga) {
-		super();
-		this.misClientes = misClientes;
+	public Contrato(String identificador, Proyecto proyecto, Cliente cliente, Date fechaInicio, Date fechaEntrega, Date fechaProrroga) {
+		this.identificador = identificador;
+		this.proyecto = proyecto;
+		this.cliente = cliente;
 		this.fechaInicio = fechaInicio;
 		this.fechaEntrega = fechaEntrega;
-		this.identificadorContrato = identificadorContrato;
-		this.identificadorCliente = identificadorCliente;
 		this.fechaProrroga = fechaProrroga;
 	}
-
-	public ArrayList<Cliente> getMisClientes() {
-		return misClientes;
-	}
-
-	public void setMisClientes(ArrayList<Cliente> misClientes) {
-		this.misClientes = misClientes;
-	}
-
+	
 	public Date getFechaInicio() {
 		return fechaInicio;
 	}
@@ -49,19 +36,15 @@ public class Contrato {
 	}
 
 	public String getIdentificadorContrato() {
-		return identificadorContrato;
+		return this.identificador;
 	}
 
 	public void setIdentificadorContrato(String identificadorContrato) {
-		this.identificadorContrato = identificadorContrato;
+		this.identificador = identificadorContrato;
 	}
 
 	public String getIdentificadorCliente() {
-		return identificadorCliente;
-	}
-
-	public void setIdentificadorCliente(String identificadorCliente) {
-		this.identificadorCliente = identificadorCliente;
+		return cliente.getIndentificador();
 	}
 
 	public Date getFechaProrroga() {
@@ -71,13 +54,8 @@ public class Contrato {
 	public void setFechaProrroga(Date fechaProrroga) {
 		this.fechaProrroga = fechaProrroga;
 	}
-	
-	public ArrayList<Trabajador> getMisTrabajadores() {
-		return misTrabajadores;
-	}
 
-	public void setMisTrabajadores(ArrayList<Trabajador> misTrabajadores) {
-		this.misTrabajadores = misTrabajadores;
-	}
-	
+	public String getNombreProyecto() {
+		return proyecto.getNombre();
+	}	
 }

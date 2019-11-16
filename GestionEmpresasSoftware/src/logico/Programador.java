@@ -1,32 +1,24 @@
 package logico;
 
-public class Programador extends Trabajador{
+import java.util.ArrayList;
+import java.util.Date;
 
-	private String lenguajeProg;
+public class Programador extends Trabajador {
 
-	public Programador(String nombre, String apellido, String direccion, boolean sexo, int edad, float salario,
-			String nombreProyecto, String eval, double precioHora, String lenguajeProg, int id) {
-		super(nombre, apellido, direccion, sexo, edad, salario, nombreProyecto, eval, precioHora, id);
-		this.lenguajeProg = lenguajeProg;
-	}
-	
-	public Programador(String nombre, int id) {
-		super(nombre, "Sanchez", "a", false, 15, 45, "B", "qda", 20,id);
-		this.lenguajeProg= "hoflda";
-	}
-	
+	private ArrayList<String> lenguajesProgramacion;
 
-	public String getLenguajeProg() {
-		return lenguajeProg;
+	public Programador(String identificador, String nombre, String apellido, String direccion, boolean sexo,
+			Date fechaNacimiento, float salario, String evaluacion, double precioHora, ArrayList<String> lenguajesProgramacion) {
+		super(identificador, nombre, apellido, direccion, sexo, fechaNacimiento, salario, evaluacion, precioHora);
+
+		this.lenguajesProgramacion = lenguajesProgramacion;
 	}
 
-	public void setLenguajeProg(String lenguajeProg) {
-		this.lenguajeProg = lenguajeProg;
+	public ArrayList<String> getLenguajesProgramacion() {
+		return lenguajesProgramacion;
 	}
 
-	@Override
-	public String get() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public void setLenguajesProgramacion(ArrayList<String> lenguajesProgramacion) {
+		this.lenguajesProgramacion = lenguajesProgramacion;
+	}	
 }

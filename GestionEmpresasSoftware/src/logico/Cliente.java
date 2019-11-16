@@ -1,18 +1,16 @@
 package logico;
 
-public class Cliente {
+import java.util.ArrayList;
 
+public class Cliente {
 	private String indentificador;
 	private String nombre;
 	private String direccion;
-	private int cantProyectos;
 	
-	public Cliente(String indentificador, String nombre, String direccion, int cantProyectos) {
-		super();
+	public Cliente(String indentificador, String nombre, String direccion) {
 		this.indentificador = indentificador;
 		this.nombre = nombre;
 		this.direccion = direccion;
-		this.cantProyectos = cantProyectos;
 	}
 
 	public String getIndentificador() {
@@ -38,13 +36,15 @@ public class Cliente {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-
-	public int getCantProyectos() {
-		return cantProyectos;
-	}
-
-	public void setCantProyectos(int cantProyectos) {
-		this.cantProyectos = cantProyectos;
-	}
 	
+	public int getCantidadProyectos(ArrayList<Contrato> contratos) {
+		int cantidadProyectos = 0;
+		
+		for (Contrato contrato : contratos) {
+			if (contrato.getIdentificadorCliente() == this.indentificador)
+				cantidadProyectos++;
+		}
+		
+		return cantidadProyectos;
+	}
 }

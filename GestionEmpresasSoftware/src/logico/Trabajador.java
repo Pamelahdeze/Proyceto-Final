@@ -1,108 +1,68 @@
 package logico;
 
+import java.util.Date;
+
 public abstract class Trabajador {
 
+	protected String identificador;
 	protected String nombre;
 	protected String apellido;
 	protected String direccion;
 	protected boolean sexo;
-	protected int edad;
+	protected Date fechaNacimiento;
 	protected float salario;
-	protected String nombreProyecto;
-	protected String eval;
+	protected String evaluacion;
 	protected double precioHora;
-    protected int id;
 	
-	public Trabajador(String nombre, String apellido, String direccion, boolean sexo, int edad, float salario,
-			String nombreProyecto, String eval, double precioHora, int id) {
-		super();
+	public Trabajador(String identificador, String nombre, String apellido, String direccion, boolean sexo, Date fechaNacimiento,
+			float salario, String evaluacion, double precioHora) {
+		this.identificador = identificador;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.direccion = direccion;
 		this.sexo = sexo;
-		this.edad = edad;
+		this.fechaNacimiento = fechaNacimiento;
 		this.salario = salario;
-		this.nombreProyecto = nombreProyecto;
-		this.eval = eval;
+		this.evaluacion = evaluacion;
 		this.precioHora = precioHora;
-		this.id = id;
 	}
 
+	public String getIdentificador() {
+		return identificador;
+	}
 
 	public String getNombre() {
 		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
 	}
 
 	public String getApellido() {
 		return apellido;
 	}
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
 	public String getDireccion() {
 		return direccion;
 	}
 
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-	public boolean getSexo() {
+	public boolean isSexo() {
 		return sexo;
 	}
 
-	public void setSexo(boolean sexo) {
-		this.sexo = sexo;
-	}
-
 	public int getEdad() {
-		return edad;
-	}
-
-	public void setEdad(int edad) {
-		this.edad = edad;
+		Date fechaActual = new Date();
+		
+		// TODO: return date difference instead
+		return fechaActual.getYear() - this.fechaNacimiento.getYear();
 	}
 
 	public float getSalario() {
 		return salario;
 	}
 
-	public void setSalario(float salario) {
-		this.salario = salario;
+	public String getEvaluacion() {
+		return evaluacion;
 	}
-
-	public String getNombreProyecto() {
-		return nombreProyecto;
-	}
-
-	public void setNombreProyecto(String nombreProyecto) {
-		this.nombreProyecto = nombreProyecto;
-	}
-
-	public String getEval() {
-		return eval;
-	}
-
-	public void setEval(String eval) {
-		this.eval = eval;
-	}
-
 
 	public double getPrecioHora() {
 		return precioHora;
-	}
-
-
-	public void setPrecioHora(double precioHora) {
-		this.precioHora = precioHora;
-	}
-	
-	public abstract String get();
-	
+	}	
 }
