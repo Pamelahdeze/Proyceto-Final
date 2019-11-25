@@ -73,7 +73,7 @@ public class ModificarContrato extends JDialog {
 		panel.setLayout(null);
 		
 		JLabel lblFechaInicio = new JLabel("Fecha Inicio:");
-		lblFechaInicio.setBounds(10, 22, 79, 14);
+		lblFechaInicio.setBounds(10, 23, 79, 14);
 		panel.add(lblFechaInicio);
 		
 		JFormattedTextField formattedTextField = new JFormattedTextField();
@@ -81,20 +81,20 @@ public class ModificarContrato extends JDialog {
 		panel.add(formattedTextField);
 		
 		JLabel lblFechaEntrega = new JLabel("Fecha Entrega:");
-		lblFechaEntrega.setBounds(10, 50, 91, 14);
+		lblFechaEntrega.setBounds(10, 60, 91, 14);
 		panel.add(lblFechaEntrega);
 		
 		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
-		formattedTextField_1.setBounds(100, 47, 90, 20);
+		formattedTextField_1.setBounds(100, 58, 90, 20);
 		panel.add(formattedTextField_1);
 		{
 			JLabel lblProrroga = new JLabel("Prorroga:");
-			lblProrroga.setBounds(10, 81, 79, 14);
+			lblProrroga.setBounds(10, 97, 79, 14);
 			panel.add(lblProrroga);
 		}
 		{
 			JFormattedTextField formattedTextField_2 = new JFormattedTextField();
-			formattedTextField_2.setBounds(100, 78, 90, 20);
+			formattedTextField_2.setBounds(100, 97, 90, 20);
 			panel.add(formattedTextField_2);
 		}
 		{
