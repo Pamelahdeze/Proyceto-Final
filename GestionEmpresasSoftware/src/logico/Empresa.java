@@ -31,4 +31,9 @@ public class Empresa {
 	public void setMisTrabajadores(ArrayList<Trabajador> misTrabajadores) {
 		this.misTrabajadores = misTrabajadores;
 	}
+	
+	public void RegistrarTrabajador(Trabajador aux) {
+		misTrabajadores.add(aux);
+		
+	}
 }
