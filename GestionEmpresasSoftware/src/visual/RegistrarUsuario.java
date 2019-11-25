@@ -38,9 +38,10 @@ public class RegistrarUsuario extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegistrarUsuario() {
-		setBounds(100, 100, 267, 289);
+		setTitle("Registrar Usuario");
+		setBounds(100, 100, 267, 303);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new TitledBorder(null, "Registrar Usuario", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
