@@ -3,6 +3,7 @@ package visual;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -19,6 +20,8 @@ public class RegTrabajador extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
+	private DefaultListModel<String> ProgDisp = new DefaultListModel<String>();
+	private DefaultListModel<String> ProgSelect = new DefaultListModel<String>();
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;

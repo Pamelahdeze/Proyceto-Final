@@ -15,12 +15,24 @@ import javax.swing.JList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
+
+import logico.Disenador;
+import logico.Empresa;
+import logico.Programador;
+import logico.Trabajador;
+
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
 
 public class RegProyecto extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNombreProyecto;
+	private DefaultListModel<String> PDisp = new DefaultListModel<String>();
+	private DefaultListModel<String> PSelect = new DefaultListModel<String>();
+	private JList<String> ProgDisp;
+	private JList<String> ProgSelect;
 
 	/**
 	 * Launch the application.
@@ -91,6 +103,13 @@ public class RegProyecto extends JDialog {
 		contentPanel.add(panel_1);
 		panel_1.setLayout(null);
 		
+		for (Trabajador allworkers : Empresa.getInstance().getMisTrabajadores()) {
+			if(allworkers instanceof Programador) {
+				PDisp.addElement(allworkers.getIdentificador()+", -"+allworkers.getNombre());
+			}
+			
+		}
+		
 		JLabel lblProgramadoresDisponibles = new JLabel("Programadores Disponibles:");
 		lblProgramadoresDisponibles.setBounds(10, 11, 175, 14);
 		panel_1.add(lblProgramadoresDisponibles);
@@ -99,8 +118,10 @@ public class RegProyecto extends JDialog {
 		scrollPane.setBounds(20, 36, 157, 172);
 		panel_1.add(scrollPane);
 		
-		JList listProgDisp = new JList();
-		scrollPane.setViewportView(listProgDisp);
+		ProgDisp = new JList();
+		ProgDisp.setModel(PDisp);
+		scrollPane.setViewportView(ProgDisp);
+		
 		
 		JLabel lblProgramadoresSeleccionados = new JLabel("Programadores Seleccionados:");
 		lblProgramadoresSeleccionados.setBounds(269, 11, 191, 14);
@@ -110,16 +131,52 @@ public class RegProyecto extends JDialog {
 		scrollPane_1.setBounds(292, 36, 157, 172);
 		panel_1.add(scrollPane_1);
 		
-		JList listProgSelect = new JList();
-		scrollPane_1.setViewportView(listProgSelect);
+		ProgSelect = new JList();
+		ProgSelect.setModel(PSelect);
+		scrollPane_1.setViewportView(ProgSelect);
 		
-		JButton btnNewButton = new JButton(">");
-		btnNewButton.setBounds(187, 84, 89, 23);
-		panel_1.add(btnNewButton);
+		JButton btnAdd = new JButton(">");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DefaultListModel<String> PDisp = ((DefaultListModel<String>)ProgDisp.getModel());
+				DefaultListModel<String> PSelect = ((DefaultListModel<String>)ProgSelect.getModel());
+				
+				for (int cadaProg : ProgDisp.getSelectedIndices()) {
+					PSelect.addElement(PDisp.getElementAt(cadaProg));
+					PDisp.removeElement(PDisp.getElementAt(cadaProg));
+				}
+				float val = 0;
+				for(int i=0; i < ProgSelect.getModel().getSize(); i++) {
+					String LosProgramadores = (String) ProgSelect.getModel().getElementAt(i);
+					String[] separadorNombre = LosProgramadores.split("-",2);
+					String Nombre = separadorNombre[1];
+				}
+			}
+		});
+		btnAdd.setBounds(187, 84, 89, 23);
+		panel_1.add(btnAdd);
 		
-		JButton btnNewButton_1 = new JButton("<");
-		btnNewButton_1.setBounds(187, 118, 89, 23);
-		panel_1.add(btnNewButton_1);
+		JButton btnReturn = new JButton("<");
+		btnReturn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DefaultListModel<String> PDisp = ((DefaultListModel<String>)ProgDisp.getModel());
+				DefaultListModel<String> PSelect = ((DefaultListModel<String>)ProgSelect.getModel());
+				
+				for (int cadaProg : ProgSelect.getSelectedIndices()) {
+					PDisp.addElement(PSelect.getElementAt(cadaProg));
+					PSelect.removeElement(PSelect.getElementAt(cadaProg));
+				}
+				float val = 0;
+				for(int i=0; i < PSelect.getSize(); i++) {
+					String Programmer = (String) PSelect.getElementAt(i);
+					String[] sepNombre =Programmer.split("-",2);
+					String Nombre = sepNombre[1];
+				}
+			}
+			
+		});
+		btnReturn.setBounds(187, 118, 89, 23);
+		panel_1.add(btnReturn);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
