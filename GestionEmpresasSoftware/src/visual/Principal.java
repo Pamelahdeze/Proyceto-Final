@@ -15,6 +15,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class Principal extends JFrame {
 
@@ -51,6 +52,7 @@ public class Principal extends JFrame {
 		setJMenuBar(menuBar);
 		
 		JMenu mnTrabajador = new JMenu("Trabajador");
+		mnTrabajador.setIcon(new ImageIcon(Principal.class.getResource("/imagenes/operator.png")));
 		menuBar.add(mnTrabajador);
 		
 		JMenuItem mntmRegistrarTrabajador = new JMenuItem("Registrar Trabajador");
@@ -69,6 +71,7 @@ public class Principal extends JFrame {
 		mnTrabajador.add(mntmListarTrabajdor);
 		
 		JMenu mnCliente = new JMenu("Cliente");
+		mnCliente.setIcon(new ImageIcon(Principal.class.getResource("/imagenes/team.png")));
 		menuBar.add(mnCliente);
 		
 		JMenuItem mntmRegistrarCliente = new JMenuItem("Registrar Cliente");
