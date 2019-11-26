@@ -51,7 +51,7 @@ public class RegProyecto extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegProyecto() {
-		setBounds(100, 100, 508, 438);
+		setBounds(100, 100, 508, 475);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -98,10 +98,43 @@ public class RegProyecto extends JDialog {
 		cbxLenguajeProyecto.setBounds(305, 69, 146, 20);
 		panel.add(cbxLenguajeProyecto);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 136, 470, 219);
-		contentPanel.add(panel_1);
-		panel_1.setLayout(null);
+		JPanel Tipo = new JPanel();
+		Tipo.setBounds(10, 136, 470, 256);
+		contentPanel.add(Tipo);
+		Tipo.setLayout(null);
+		
+		JLabel lblDiseadoresDisponibles = new JLabel("Dise\u00F1adores Disponibles:");
+		lblDiseadoresDisponibles.setBounds(10, 11, 175, 14);
+		Tipo.add(lblDiseadoresDisponibles);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(20, 36, 157, 172);
+		Tipo.add(scrollPane_2);
+		
+		JLabel label_1 = new JLabel("Programadores Seleccionados:");
+		label_1.setBounds(269, 11, 191, 14);
+		Tipo.add(label_1);
+		
+		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3.setBounds(292, 36, 157, 172);
+		Tipo.add(scrollPane_3);
+		
+		JButton button = new JButton(">");
+		button.setBounds(187, 84, 89, 23);
+		Tipo.add(button);
+		
+		JButton button_1 = new JButton("<");
+		button_1.setBounds(187, 118, 89, 23);
+		Tipo.add(button_1);
+		
+		JButton btnNewButton = new JButton("Aceptar");
+		btnNewButton.setBounds(314, 222, 89, 23);
+		Tipo.add(btnNewButton);
+		
+		JPanel Lenguaje = new JPanel();
+		Lenguaje.setBounds(10, 136, 470, 256);
+		contentPanel.add(Lenguaje);
+		Lenguaje.setLayout(null);
 		
 		for (Trabajador allworkers : Empresa.getInstance().getMisTrabajadores()) {
 			if(allworkers instanceof Programador) {
@@ -112,11 +145,11 @@ public class RegProyecto extends JDialog {
 		
 		JLabel lblProgramadoresDisponibles = new JLabel("Programadores Disponibles:");
 		lblProgramadoresDisponibles.setBounds(10, 11, 175, 14);
-		panel_1.add(lblProgramadoresDisponibles);
+		Lenguaje.add(lblProgramadoresDisponibles);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(20, 36, 157, 172);
-		panel_1.add(scrollPane);
+		Lenguaje.add(scrollPane);
 		
 		ProgDisp = new JList();
 		ProgDisp.setModel(PDisp);
@@ -125,11 +158,11 @@ public class RegProyecto extends JDialog {
 		
 		JLabel lblProgramadoresSeleccionados = new JLabel("Programadores Seleccionados:");
 		lblProgramadoresSeleccionados.setBounds(269, 11, 191, 14);
-		panel_1.add(lblProgramadoresSeleccionados);
+		Lenguaje.add(lblProgramadoresSeleccionados);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(292, 36, 157, 172);
-		panel_1.add(scrollPane_1);
+		Lenguaje.add(scrollPane_1);
 		
 		ProgSelect = new JList();
 		ProgSelect.setModel(PSelect);
@@ -154,7 +187,7 @@ public class RegProyecto extends JDialog {
 			}
 		});
 		btnAdd.setBounds(187, 84, 89, 23);
-		panel_1.add(btnAdd);
+		Lenguaje.add(btnAdd);
 		
 		JButton btnReturn = new JButton("<");
 		btnReturn.addActionListener(new ActionListener() {
@@ -176,7 +209,11 @@ public class RegProyecto extends JDialog {
 			
 		});
 		btnReturn.setBounds(187, 118, 89, 23);
-		panel_1.add(btnReturn);
+		Lenguaje.add(btnReturn);
+		
+		JButton button_2 = new JButton("Aceptar");
+		button_2.setBounds(314, 222, 89, 23);
+		Lenguaje.add(button_2);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

@@ -15,6 +15,10 @@ import javax.swing.JSpinner;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextArea;
+import javax.swing.JList;
 
 public class RegTrabajador extends JDialog {
 
@@ -28,7 +32,6 @@ public class RegTrabajador extends JDialog {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
-	private JTextField textField_7;
 	private JTextField textField_8;
 
 	/**
@@ -177,15 +180,47 @@ public class RegTrabajador extends JDialog {
 				PanelDiseñador.add(lblTipo);
 			}
 			{
-				textField_7 = new JTextField();
-				textField_7.setBounds(74, 22, 122, 20);
-				PanelDiseñador.add(textField_7);
-				textField_7.setColumns(10);
+				JComboBox comboBox = new JComboBox();
+				comboBox.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "App M\u00F3vil", "Escritorio", "Web"}));
+				comboBox.setBounds(110, 22, 131, 20);
+				PanelDiseñador.add(comboBox);
 			}
 		}
 		{
+			JPanel panelProgramador = new JPanel();
+			panelProgramador.setLayout(null);
+			panelProgramador.setBounds(10, 311, 525, 137);
+			contentPanel.add(panelProgramador);
+			{
+				JLabel label = new JLabel("Tipo:");
+				label.setBounds(10, 25, 54, 14);
+				panelProgramador.add(label);
+			}
+			{
+				JComboBox comboBox = new JComboBox();
+				comboBox.setBounds(110, 22, 131, 20);
+				panelProgramador.add(comboBox);
+			}
+		}
+		{
+			JPanel Planificador = new JPanel();
+			Planificador.setLayout(null);
+			Planificador.setBounds(10, 311, 525, 137);
+			contentPanel.add(Planificador);
+			{
+				JLabel lblFrecuencia = new JLabel("Frecuencia:");
+				lblFrecuencia.setBounds(10, 25, 135, 14);
+				Planificador.add(lblFrecuencia);
+			}
+			
+			JSpinner spinner = new JSpinner();
+			spinner.setBounds(155, 22, 86, 20);
+			Planificador.add(spinner);
+		}
+		{
 			JPanel PanelJefe = new JPanel();
-			getContentPane().add(PanelJefe, BorderLayout.NORTH);
+			PanelJefe.setBounds(10, 311, 525, 137);
+			contentPanel.add(PanelJefe);
 			PanelJefe.setLayout(null);
 			{
 				JLabel lblCantidad = new JLabel("Cantidad de Trabajadores:");
@@ -197,11 +232,6 @@ public class RegTrabajador extends JDialog {
 				textField_8.setBounds(155, 22, 86, 20);
 				PanelJefe.add(textField_8);
 				textField_8.setColumns(10);
-			}
-			{
-				JPanel PanelProgramador = new JPanel();
-				PanelProgramador.setBounds(0, 0, 525, 137);
-				PanelJefe.add(PanelProgramador);
 			}
 		}
 		{

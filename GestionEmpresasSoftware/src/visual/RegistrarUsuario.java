@@ -90,7 +90,7 @@ public class RegistrarUsuario extends JDialog {
 		textField_3.setColumns(10);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Administrador", "Cliente"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar Usuario>", "Administrador", "Cliente"}));
 		comboBox.setBounds(77, 101, 139, 20);
 		contentPanel.add(comboBox);
 		{
