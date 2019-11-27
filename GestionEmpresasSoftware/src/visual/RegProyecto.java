@@ -111,9 +111,9 @@ public class RegProyecto extends JDialog {
 		scrollPane_2.setBounds(20, 36, 157, 172);
 		Tipo.add(scrollPane_2);
 		
-		JLabel label_1 = new JLabel("Programadores Seleccionados:");
-		label_1.setBounds(269, 11, 191, 14);
-		Tipo.add(label_1);
+		JLabel lblDiseadoresSeleccionados = new JLabel("Dise\u00F1adores Seleccionados:");
+		lblDiseadoresSeleccionados.setBounds(269, 11, 191, 14);
+		Tipo.add(lblDiseadoresSeleccionados);
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
 		scrollPane_3.setBounds(292, 36, 157, 172);
