@@ -128,30 +128,14 @@ public class RegistrarCliente extends JDialog {
 		lblNewLabel.setBounds(10, 38, 158, 166);
 		panel.add(lblNewLabel);
 		{
-			JButton cancelButton = new JButton("Cancelar");
-			cancelButton.setBackground(SystemColor.textHighlightText);
-			cancelButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			cancelButton.setHorizontalTextPosition(SwingConstants.CENTER);
-			cancelButton.setFont(new Font("Tahoma", Font.BOLD, 13));
-			cancelButton.setBorder(new LineBorder(Color.BLACK, 1, true));
-			cancelButton.setBounds(93, 222, 75, 23);
-			panel.add(cancelButton);
-			cancelButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					dispose();
-				}
-			});
-			cancelButton.setActionCommand("Cancel");
-		}
-		{
 			JButton okButton = new JButton("Registrar");
-			okButton.setBackground(SystemColor.textHighlightText);
+			okButton.setBackground(SystemColor.activeCaption);
 			okButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			okButton.setHorizontalTextPosition(SwingConstants.CENTER);
 			okButton.setFont(new Font("Tahoma", Font.BOLD, 13));
 			okButton.setOpaque(false);
-			okButton.setBorder(new LineBorder(Color.BLACK, 1, true));
-			okButton.setBounds(10, 222, 77, 23);
+			okButton.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
+			okButton.setBounds(10, 222, 158, 23);
 			panel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
