@@ -48,14 +48,14 @@ public class RegistrarCliente extends JDialog {
 	 */
 	public RegistrarCliente() {
 		setTitle("Registrar Cliente");
-		setBounds(100, 100, 277, 230);
+		setBounds(100, 100, 264, 230);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JLabel lblID = new JLabel("ID:");
-		lblID.setBounds(10, 11, 46, 14);
+		lblID.setBounds(10, 20, 46, 14);
 		contentPanel.add(lblID);
 		
 		try {
@@ -64,34 +64,34 @@ public class RegistrarCliente extends JDialog {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		textId.setBounds(66, 8, 97, 20);
+		textId.setBounds(77, 17, 100, 20);
 		contentPanel.add(textId);
 		textId.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(10, 42, 46, 14);
+		lblNombre.setBounds(10, 54, 64, 14);
 		contentPanel.add(lblNombre);
 		
 		textNombre = new JTextField();
 		textNombre.setColumns(10);
-		textNombre.setBounds(66, 39, 185, 20);
+		textNombre.setBounds(76, 51, 162, 20);
 		contentPanel.add(textNombre);
 		
 		JLabel lblDireccin = new JLabel("Direcci\u00F3n:");
-		lblDireccin.setBounds(10, 76, 64, 14);
+		lblDireccin.setBounds(10, 88, 64, 14);
 		contentPanel.add(lblDireccin);
 		
 		textDireccion = new JTextField();
 		textDireccion.setColumns(10);
-		textDireccion.setBounds(66, 70, 185, 20);
+		textDireccion.setBounds(76, 85, 162, 20);
 		contentPanel.add(textDireccion);
 		
 		JLabel lblCantidadProyectos = new JLabel("Cantidad Proyectos:");
-		lblCantidadProyectos.setBounds(10, 113, 109, 14);
+		lblCantidadProyectos.setBounds(10, 122, 138, 14);
 		contentPanel.add(lblCantidadProyectos);
 		
 		JSpinner spinnerCantidad = new JSpinner();
-		spinnerCantidad.setBounds(123, 110, 40, 20);
+		spinnerCantidad.setBounds(137, 119, 40, 20);
 		contentPanel.add(spinnerCantidad);
 		{
 			JPanel buttonPane = new JPanel();

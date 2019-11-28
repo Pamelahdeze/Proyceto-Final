@@ -48,61 +48,61 @@ public class RegistrarUsuario extends JDialog {
 	public RegistrarUsuario() {
 		miDialog = this;
 		setTitle("Registrar Usuario");
-		setBounds(100, 100, 267, 303);
+		setBounds(100, 100, 267, 270);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(10, 30, 46, 14);
+		lblNombre.setBounds(10, 21, 82, 14);
 		contentPanel.add(lblNombre);
 		
 		JLabel lblApellido = new JLabel("Apellido:");
-		lblApellido.setBounds(10, 67, 46, 14);
+		lblApellido.setBounds(10, 56, 82, 14);
 		contentPanel.add(lblApellido);
 		
 		JLabel lblTipoDeUsuario = new JLabel("Tipo:");
-		lblTipoDeUsuario.setBounds(10, 104, 88, 14);
+		lblTipoDeUsuario.setBounds(10, 91, 88, 14);
 		contentPanel.add(lblTipoDeUsuario);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-		lblContrasea.setBounds(10, 141, 67, 14);
+		lblContrasea.setBounds(10, 126, 88, 14);
 		contentPanel.add(lblContrasea);
 		
 		JLabel lblNueva = new JLabel("Confirmar");
-		lblNueva.setBounds(10, 168, 67, 14);
+		lblNueva.setBounds(10, 151, 88, 14);
 		contentPanel.add(lblNueva);
 		
 		JLabel lblContrasea_1 = new JLabel("contrase\u00F1a:");
-		lblContrasea_1.setBounds(10, 181, 67, 14);
+		lblContrasea_1.setBounds(10, 164, 88, 14);
 		contentPanel.add(lblContrasea_1);
 		
 		textNombre = new JTextField();
-		textNombre.setBounds(77, 27, 139, 20);
+		textNombre.setBounds(81, 18, 160, 20);
 		contentPanel.add(textNombre);
 		textNombre.setColumns(10);
 		
 		textApellido = new JTextField();
-		textApellido.setBounds(77, 64, 139, 20);
+		textApellido.setBounds(81, 53, 160, 20);
 		contentPanel.add(textApellido);
 		textApellido.setColumns(10);
 		
 		textContraseña = new JPasswordField();
 		textContraseña.setEchoChar('*');
-		textContraseña.setBounds(77, 138, 139, 20);
+		textContraseña.setBounds(81, 123, 160, 20);
 		contentPanel.add(textContraseña);
 		textContraseña.setColumns(10);
 		
 		textConfirmarContraseña = new JPasswordField();
 		textConfirmarContraseña.setEchoChar('*');
-		textConfirmarContraseña.setBounds(77, 175, 139, 20);
+		textConfirmarContraseña.setBounds(81, 158, 160, 20);
 		contentPanel.add(textConfirmarContraseña);
 		textConfirmarContraseña.setColumns(10);
 		
 		JComboBox comboTipo = new JComboBox();
 		comboTipo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar Usuario>", "Administrador", "Cliente"}));
-		comboTipo.setBounds(77, 101, 139, 20);
+		comboTipo.setBounds(81, 88, 160, 20);
 		contentPanel.add(comboTipo);
 		{
 			JPanel buttonPane = new JPanel();

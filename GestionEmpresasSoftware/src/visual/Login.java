@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import logico.Empresa;
+import javax.swing.JSeparator;
 
 public class Login extends JDialog {
 
@@ -43,14 +44,14 @@ public class Login extends JDialog {
 	public Login() {
 		miDialog = this;
 		setTitle("Login");
-		setBounds(100, 100, 234, 236);
+		setBounds(100, 100, 226, 210);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(null);
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBounds(0, 145, 218, 1);
+			buttonPane.setBounds(0, 147, 239, -1);
 			contentPanel.add(buttonPane);
 			buttonPane.setLayout(null);
 			{
@@ -61,30 +62,30 @@ public class Login extends JDialog {
 		}
 		{
 			JLabel lblUsuario = new JLabel("Usuario:");
-			lblUsuario.setBounds(10, 37, 46, 14);
+			lblUsuario.setBounds(10, 37, 64, 14);
 			contentPanel.add(lblUsuario);
 		}
 		{
 			textUsuario = new JTextField();
-			textUsuario.setBounds(77, 34, 120, 20);
+			textUsuario.setBounds(84, 34, 116, 20);
 			contentPanel.add(textUsuario);
 			textUsuario.setColumns(10);
 		}
 		{
 			JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-			lblContrasea.setBounds(10, 86, 65, 14);
+			lblContrasea.setBounds(10, 86, 81, 14);
 			contentPanel.add(lblContrasea);
 		}
 		{
 			textContraseña = new JPasswordField();
 			textContraseña.setEchoChar('*');
-			textContraseña.setBounds(77, 83, 120, 20);
+			textContraseña.setBounds(84, 83, 116, 20);
 			contentPanel.add(textContraseña);
 			textContraseña.setColumns(10);
 		}
 		
 		JButton btnLogin = new JButton("Login");
-		btnLogin.setBounds(64, 157, 89, 23);
+		btnLogin.setBounds(60, 137, 89, 23);
 		btnLogin.addActionListener(new ActionListener() {
 			
 			@Override
@@ -101,5 +102,9 @@ public class Login extends JDialog {
 			}
 		});
 		contentPanel.add(btnLogin);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 124, 190, 12);
+		contentPanel.add(separator);
 	}
 }
