@@ -211,7 +211,7 @@ public class Principal extends JFrame {
 		if(user.getTipo().equals("Cliente")) {
 			activarModoCliente();
 		}
-		
+		//una chuleria que puse para quien inicie sesion
 		lblUsuario.setText("Bienvenid@ "+user.getNombre());
 		lblUsuario.setVisible(true);
 	}
