@@ -6,21 +6,29 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+
+import logico.Empresa;
+import logico.Usuario;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class RegistrarUsuario extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-
+	private JTextField textNombre;
+	private JTextField textApellido;
+	private JPasswordField textContraseña;
+	private JPasswordField textConfirmarContraseña;
+    private JDialog miDialog;
 	/**
 	 * Launch the application.
 	 */
@@ -38,6 +46,7 @@ public class RegistrarUsuario extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegistrarUsuario() {
+		miDialog = this;
 		setTitle("Registrar Usuario");
 		setBounds(100, 100, 267, 303);
 		getContentPane().setLayout(new BorderLayout());
@@ -69,42 +78,101 @@ public class RegistrarUsuario extends JDialog {
 		lblContrasea_1.setBounds(10, 181, 67, 14);
 		contentPanel.add(lblContrasea_1);
 		
-		textField = new JTextField();
-		textField.setBounds(77, 27, 139, 20);
-		contentPanel.add(textField);
-		textField.setColumns(10);
+		textNombre = new JTextField();
+		textNombre.setBounds(77, 27, 139, 20);
+		contentPanel.add(textNombre);
+		textNombre.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(77, 64, 139, 20);
-		contentPanel.add(textField_1);
-		textField_1.setColumns(10);
+		textApellido = new JTextField();
+		textApellido.setBounds(77, 64, 139, 20);
+		contentPanel.add(textApellido);
+		textApellido.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(77, 138, 139, 20);
-		contentPanel.add(textField_2);
-		textField_2.setColumns(10);
+		textContraseña = new JPasswordField();
+		textContraseña.setEchoChar('*');
+		textContraseña.setBounds(77, 138, 139, 20);
+		contentPanel.add(textContraseña);
+		textContraseña.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(77, 175, 139, 20);
-		contentPanel.add(textField_3);
-		textField_3.setColumns(10);
+		textConfirmarContraseña = new JPasswordField();
+		textConfirmarContraseña.setEchoChar('*');
+		textConfirmarContraseña.setBounds(77, 175, 139, 20);
+		contentPanel.add(textConfirmarContraseña);
+		textConfirmarContraseña.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar Usuario>", "Administrador", "Cliente"}));
-		comboBox.setBounds(77, 101, 139, 20);
-		contentPanel.add(comboBox);
+		JComboBox comboTipo = new JComboBox();
+		comboTipo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar Usuario>", "Administrador", "Cliente"}));
+		comboTipo.setBounds(77, 101, 139, 20);
+		contentPanel.add(comboTipo);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Registrar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(validarCamposUsuario())
+						{	
+							Usuario usuario = new Usuario(textNombre.getText(),comboTipo.getSelectedItem().toString(),textContraseña.getText());
+							Empresa.getInstance().RegistrarUsuario(usuario);
+							JOptionPane.showMessageDialog(miDialog, "Usuario registrado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+						    clear();
+						}
+					}
+
+					private void clear() {
+						textNombre.setText(null);
+						textApellido.setText(null);
+						comboTipo.setSelectedIndex(0);
+						textContraseña.setText(null);
+						textConfirmarContraseña.setText(null);
+					}
+
+					private boolean validarCamposUsuario() {
+						String mensajeValidacion = "";
+						boolean datosValidos = true;
+						if(textNombre.getText().trim().isEmpty()) {
+							mensajeValidacion += "*El campo nombre es necesario\n";
+							datosValidos = false;
+						}
+						if(textApellido.getText().trim().isEmpty()) {
+							mensajeValidacion += "*El campo apellido es necesario\n";
+							datosValidos = false;
+						}
+						if(comboTipo.getSelectedIndex() == 0) {
+							mensajeValidacion += "*Debe seleccionar el tipo de usuario\n";
+							datosValidos = false;
+						}
+						if(textContraseña.getText().trim().isEmpty()){
+							mensajeValidacion += "*El campo contraseña es necesario\n";
+							datosValidos = false;
+						} 
+						if(textConfirmarContraseña.getText().trim().isEmpty()) {
+							mensajeValidacion += "*Debe confirmar la contraseña\n";
+							datosValidos = false;
+						}
+						else if(!textConfirmarContraseña.getText().trim().contentEquals(textContraseña.getText().trim())) {
+							mensajeValidacion += "*Las contraseñas deben coincidir\n";
+							datosValidos = false;
+						}
+						if(datosValidos == false) {
+							JOptionPane.showMessageDialog(miDialog, mensajeValidacion, "Error de validación", JOptionPane.ERROR_MESSAGE);
+						}
+						return datosValidos;
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						miDialog.dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

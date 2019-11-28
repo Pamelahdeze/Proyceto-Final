@@ -1,8 +1,9 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Contrato {
+public class Contrato implements Serializable{
 	//private String identificador;
 	private Proyecto proyecto;
 	private Cliente cliente;
@@ -35,13 +36,13 @@ public class Contrato {
 		this.fechaEntrega = fechaEntrega;
 	}
 
-	//public String getIdentificadorContrato() {
-	//	return this.identificador;
-	//}
-
-	//public void setIdentificadorContrato(String identificadorContrato) {
-	//	this.identificador = identificadorContrato;
-	//}
+//	public String getIdentificadorContrato() {
+//		return this.identificador;
+//	}
+//
+//	public void setIdentificadorContrato(String identificadorContrato) {
+//		this.identificador = identificadorContrato;
+//	}
 
 	public String getIdentificadorCliente() {
 		return cliente.getIndentificador();
@@ -60,10 +61,15 @@ public class Contrato {
 	}	
 	
 	public double calcularCosto() {
-		return 0;
+		double precioTrabajadores = 0;
+		for (Trabajador trabajador : this.proyecto.getTrabajadores()) {
+              precioTrabajadores += trabajador.precioHora;
+     	}
+		return precioTrabajadores * 8 * (fechaEntrega.getDay() - fechaInicio.getDay());
 	}
 	
 	public double calcularGanancia() {
-		return 0;
+		double costo = calcularCosto();
+		return costo + 0.15 * costo;
 	}
 }

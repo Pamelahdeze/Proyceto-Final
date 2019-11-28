@@ -2,21 +2,28 @@ package visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import logico.Empresa;
 
 public class Login extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-
+	private JTextField textUsuario;
+	private JPasswordField textContraseña;
+	public boolean loginOk = false;
+    private JDialog miDialog;
 	/**
 	 * Launch the application.
 	 */
@@ -34,6 +41,7 @@ public class Login extends JDialog {
 	 * Create the dialog.
 	 */
 	public Login() {
+		miDialog = this;
 		setTitle("Login");
 		setBounds(100, 100, 234, 236);
 		getContentPane().setLayout(new BorderLayout());
@@ -46,7 +54,7 @@ public class Login extends JDialog {
 			contentPanel.add(buttonPane);
 			buttonPane.setLayout(null);
 			{
-				JButton cancelButton = new JButton("Login");
+				JButton cancelButton = new JButton("Cancelar");
 				cancelButton.setBounds(245, 5, 57, 23);
 				buttonPane.add(cancelButton);
 			}
@@ -57,10 +65,10 @@ public class Login extends JDialog {
 			contentPanel.add(lblUsuario);
 		}
 		{
-			textField = new JTextField();
-			textField.setBounds(77, 34, 120, 20);
-			contentPanel.add(textField);
-			textField.setColumns(10);
+			textUsuario = new JTextField();
+			textUsuario.setBounds(77, 34, 120, 20);
+			contentPanel.add(textUsuario);
+			textUsuario.setColumns(10);
 		}
 		{
 			JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
@@ -68,14 +76,30 @@ public class Login extends JDialog {
 			contentPanel.add(lblContrasea);
 		}
 		{
-			textField_1 = new JTextField();
-			textField_1.setBounds(77, 83, 120, 20);
-			contentPanel.add(textField_1);
-			textField_1.setColumns(10);
+			textContraseña = new JPasswordField();
+			textContraseña.setEchoChar('*');
+			textContraseña.setBounds(77, 83, 120, 20);
+			contentPanel.add(textContraseña);
+			textContraseña.setColumns(10);
 		}
 		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.setBounds(64, 157, 89, 23);
+		btnLogin.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String user = textUsuario.getText();
+				String password = textContraseña.getText();
+				if(Empresa.getInstance().IniciarSesion(user, password)) {
+					loginOk = true;
+				    miDialog.dispose();
+				}
+				else {
+					JOptionPane.showMessageDialog(miDialog, "Usuario o Contraseña incorrectos", "Información", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		contentPanel.add(btnLogin);
 	}
 }

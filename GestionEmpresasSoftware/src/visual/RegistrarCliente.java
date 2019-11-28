@@ -5,20 +5,30 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
+
+import logico.Cliente;
+import logico.Empresa;
+import logico.Usuario;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 
 public class RegistrarCliente extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JFormattedTextField textId;
+	private JTextField textNombre;
+	private JTextField textDireccion;
+	private JDialog miDialog;
 
 	/**
 	 * Launch the application.
@@ -48,42 +58,65 @@ public class RegistrarCliente extends JDialog {
 		lblID.setBounds(10, 11, 46, 14);
 		contentPanel.add(lblID);
 		
-		textField = new JTextField();
-		textField.setBounds(66, 8, 97, 20);
-		contentPanel.add(textField);
-		textField.setColumns(10);
+		try {
+			textId = new JFormattedTextField(new MaskFormatter("##-###"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		textId.setBounds(66, 8, 97, 20);
+		contentPanel.add(textId);
+		textId.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setBounds(10, 42, 46, 14);
 		contentPanel.add(lblNombre);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(66, 39, 185, 20);
-		contentPanel.add(textField_1);
+		textNombre = new JTextField();
+		textNombre.setColumns(10);
+		textNombre.setBounds(66, 39, 185, 20);
+		contentPanel.add(textNombre);
 		
 		JLabel lblDireccin = new JLabel("Direcci\u00F3n:");
 		lblDireccin.setBounds(10, 76, 64, 14);
 		contentPanel.add(lblDireccin);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(66, 70, 185, 20);
-		contentPanel.add(textField_2);
+		textDireccion = new JTextField();
+		textDireccion.setColumns(10);
+		textDireccion.setBounds(66, 70, 185, 20);
+		contentPanel.add(textDireccion);
 		
 		JLabel lblCantidadProyectos = new JLabel("Cantidad Proyectos:");
 		lblCantidadProyectos.setBounds(10, 113, 109, 14);
 		contentPanel.add(lblCantidadProyectos);
 		
-		JSpinner spinner = new JSpinner();
-		spinner.setBounds(123, 110, 40, 20);
-		contentPanel.add(spinner);
+		JSpinner spinnerCantidad = new JSpinner();
+		spinnerCantidad.setBounds(123, 110, 40, 20);
+		contentPanel.add(spinnerCantidad);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Registrar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(validarCamposCliente())
+						{	
+							Cliente cliente = new Cliente(textId.getText(),textNombre.getText(),textDireccion.getText());
+							Empresa.getInstance().RegistrarCliente(cliente);
+							JOptionPane.showMessageDialog(miDialog, "Cliente registrado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+						    clear();
+						}
+					}
+
+					private void clear() {
+						textId.setText(null);
+						textNombre.setText(null);
+						spinnerCantidad.setValue(0);
+						textDireccion.setText(null);
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -99,5 +132,31 @@ public class RegistrarCliente extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+	
+	private boolean validarCamposCliente() {
+		String mensajeValidacion = "";
+		boolean datosValidos = true;
+		
+		if(textNombre.getText().trim().isEmpty()) {
+			mensajeValidacion += "*El campo nombre es necesario\n";
+			datosValidos = false;
+		}
+		if(textDireccion.getText().trim().isEmpty()) {
+			mensajeValidacion += "*El campo dirección es necesario\n";
+			datosValidos = false;
+		}
+		if(textId.getText().trim().isEmpty()) {
+			mensajeValidacion += "*El identificador es necesario\n";
+			datosValidos = false;
+		}
+		else if(Empresa.getInstance().existeIdCliente(textId.getText())) {
+			mensajeValidacion += "*El identificador ya ha sido utilizado\n";
+			datosValidos = false;
+		} 
+		if(datosValidos == false) {
+			JOptionPane.showMessageDialog(this, mensajeValidacion, "Error de validación", JOptionPane.ERROR_MESSAGE);
+		}
+		return datosValidos;
 	}
 }
