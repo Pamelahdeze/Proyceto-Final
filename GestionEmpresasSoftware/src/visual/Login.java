@@ -17,6 +17,13 @@ import javax.swing.border.TitledBorder;
 
 import logico.Empresa;
 import javax.swing.JSeparator;
+import java.awt.SystemColor;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Cursor;
 
 public class Login extends JDialog {
 
@@ -42,10 +49,13 @@ public class Login extends JDialog {
 	 * Create the dialog.
 	 */
 	public Login() {
+		
+		setUndecorated(true);
 		miDialog = this;
 		setTitle("Login");
-		setBounds(100, 100, 226, 210);
+		setBounds(100, 100, 330, 265);
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(SystemColor.activeCaption);
 		contentPanel.setBorder(null);
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -62,30 +72,30 @@ public class Login extends JDialog {
 		}
 		{
 			JLabel lblUsuario = new JLabel("Usuario:");
-			lblUsuario.setBounds(10, 37, 64, 14);
+			lblUsuario.setBounds(33, 159, 64, 14);
 			contentPanel.add(lblUsuario);
 		}
 		{
 			textUsuario = new JTextField();
-			textUsuario.setBounds(84, 34, 116, 20);
+			textUsuario.setBounds(107, 156, 116, 20);
 			contentPanel.add(textUsuario);
 			textUsuario.setColumns(10);
 		}
 		{
 			JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-			lblContrasea.setBounds(10, 86, 81, 14);
+			lblContrasea.setBounds(33, 190, 81, 14);
 			contentPanel.add(lblContrasea);
 		}
 		{
 			textContraseña = new JPasswordField();
 			textContraseña.setEchoChar('*');
-			textContraseña.setBounds(84, 83, 116, 20);
+			textContraseña.setBounds(107, 187, 116, 20);
 			contentPanel.add(textContraseña);
 			textContraseña.setColumns(10);
 		}
 		
 		JButton btnLogin = new JButton("Login");
-		btnLogin.setBounds(60, 137, 89, 23);
+		btnLogin.setBounds(120, 231, 89, 23);
 		btnLogin.addActionListener(new ActionListener() {
 			
 			@Override
@@ -104,7 +114,26 @@ public class Login extends JDialog {
 		contentPanel.add(btnLogin);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 124, 190, 12);
+		separator.setBounds(10, 218, 310, 12);
 		contentPanel.add(separator);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/imagenes/interaction.png")));
+		lblNewLabel.setBounds(87, 25, 156, 121);
+		contentPanel.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("X\r\n");
+		lblNewLabel_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblNewLabel_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				dispose();
+			}
+		});
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setForeground(SystemColor.text);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_1.setBounds(274, 11, 46, 14);
+		contentPanel.add(lblNewLabel_1);
 	}
 }
