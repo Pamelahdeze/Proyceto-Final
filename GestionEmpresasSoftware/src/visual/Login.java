@@ -210,6 +210,16 @@ public class Login extends JDialog {
 					lblLoginMessage.setText("El usuario y/o la contraseña no concuerdan");
 				}
 			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				loginPanel.setBackground(new Color(30,60,60));
+			}
+			public void mouseExited(MouseEvent e) {
+				loginPanel.setBackground(new Color(47,79,79));
+			}
+			public void mousePressed(MouseEvent e) {
+				loginPanel.setBackground(new Color(60,80,80));
+			}
 		});
 		loginPanel.setBackground(new Color(30, 144, 255));
 		loginPanel.setBounds(175, 292, 250, 50);
