@@ -32,7 +32,16 @@ public class RegTrabajador extends JDialog {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
-	private JTextField textField_8;
+	private JTextField txtCantidad;
+	JPanel PanelDiseñador;
+	JPanel panelProgramador;
+	JPanel PanelJefe;
+	JPanel PanelPlanificador;
+	JRadioButton rdbtnJefe;
+	JRadioButton rdbtnProgramador;
+	JRadioButton rdbtnPlanificador;
+	JRadioButton rdbtnDisenador;
+	JSpinner spnFrecuencia;
 
 	/**
 	 * Launch the application.
@@ -69,7 +78,7 @@ public class RegTrabajador extends JDialog {
 			}
 			{
 				textField = new JTextField();
-				textField.setBounds(76, 29, 86, 20);
+				textField.setBounds(130, 29, 86, 20);
 				panel.add(textField);
 				textField.setColumns(10);
 			}
@@ -102,7 +111,7 @@ public class RegTrabajador extends JDialog {
 			}
 			{
 				textField_3 = new JTextField();
-				textField_3.setBounds(76, 143, 86, 20);
+				textField_3.setBounds(130, 143, 86, 20);
 				panel.add(textField_3);
 				textField_3.setColumns(10);
 			}
@@ -150,27 +159,81 @@ public class RegTrabajador extends JDialog {
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		{
-			JRadioButton rdbtnDiseador = new JRadioButton("Dise\u00F1ador");
-			rdbtnDiseador.setBounds(21, 18, 96, 23);
-			panel.add(rdbtnDiseador);
+			rdbtnDisenador = new JRadioButton("Dise\u00F1ador");
+			rdbtnDisenador.setSelected(true);
+			rdbtnDisenador.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					PanelDiseñador.setVisible(true);
+					panelProgramador.setVisible(false);
+					PanelJefe.setVisible(false);
+					PanelPlanificador.setVisible(false);			
+					rdbtnDisenador.setSelected(true);
+					rdbtnJefe.setSelected(false);
+					rdbtnProgramador.setSelected(false);
+					rdbtnPlanificador.setSelected(false);
+					//txtCantidad.setVisible(false);
+					//spnFrecuencia.setVisible(false);
+					
+					}
+			});
+			rdbtnDisenador.setSelected(true);
+			rdbtnDisenador.setBounds(21, 18, 96, 23);
+			panel.add(rdbtnDisenador);
 		}
 		{
-			JRadioButton rdbtnNewRadioButton = new JRadioButton("Jefe de Proyecto");
-			rdbtnNewRadioButton.setBounds(130, 18, 134, 23);
-			panel.add(rdbtnNewRadioButton);
+			rdbtnJefe = new JRadioButton("Jefe de Proyecto");
+			rdbtnJefe.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					PanelDiseñador.setVisible(false);
+					panelProgramador.setVisible(false);
+					PanelJefe.setVisible(true);
+					PanelPlanificador.setVisible(false);			
+					rdbtnDisenador.setSelected(false);
+					rdbtnJefe.setSelected(true);
+					rdbtnProgramador.setSelected(false);
+					rdbtnPlanificador.setSelected(false);
+				}
+			});
+			rdbtnJefe.setBounds(130, 18, 134, 23);
+			panel.add(rdbtnJefe);
 		}
 		{
-			JRadioButton rdbtnProgramador = new JRadioButton("Programador");
+			rdbtnProgramador = new JRadioButton("Programador");
+			rdbtnProgramador.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					PanelDiseñador.setVisible(false);
+					panelProgramador.setVisible(true);
+					PanelJefe.setVisible(false);
+					PanelPlanificador.setVisible(false);			
+					rdbtnDisenador.setSelected(false);
+					rdbtnJefe.setSelected(false);
+					rdbtnProgramador.setSelected(true);
+					rdbtnPlanificador.setSelected(false);
+				}
+			});
 			rdbtnProgramador.setBounds(277, 18, 109, 23);
 			panel.add(rdbtnProgramador);
 		}
 		{
-			JRadioButton rdbtnPlanificador = new JRadioButton("Planificador");
+			rdbtnPlanificador = new JRadioButton("Planificador");
+			rdbtnPlanificador.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					PanelDiseñador.setVisible(false);
+					panelProgramador.setVisible(false);
+					PanelJefe.setVisible(false);
+					PanelPlanificador.setVisible(true);			
+					rdbtnDisenador.setSelected(false);
+					rdbtnJefe.setSelected(false);
+					rdbtnProgramador.setSelected(false);
+					rdbtnPlanificador.setSelected(true);
+					
+				}
+			});
 			rdbtnPlanificador.setBounds(402, 18, 109, 23);
 			panel.add(rdbtnPlanificador);
 		}
 		{
-			JPanel PanelDiseñador = new JPanel();
+			PanelDiseñador = new JPanel();
 			PanelDiseñador.setBounds(10, 311, 525, 137);
 			contentPanel.add(PanelDiseñador);
 			PanelDiseñador.setLayout(null);
@@ -187,7 +250,7 @@ public class RegTrabajador extends JDialog {
 			}
 		}
 		{
-			JPanel panelProgramador = new JPanel();
+			panelProgramador = new JPanel();
 			panelProgramador.setLayout(null);
 			panelProgramador.setBounds(10, 311, 525, 137);
 			contentPanel.add(panelProgramador);
@@ -203,22 +266,22 @@ public class RegTrabajador extends JDialog {
 			}
 		}
 		{
-			JPanel Planificador = new JPanel();
-			Planificador.setLayout(null);
-			Planificador.setBounds(10, 311, 525, 137);
-			contentPanel.add(Planificador);
+			PanelPlanificador = new JPanel();
+			PanelPlanificador.setLayout(null);
+			PanelPlanificador.setBounds(10, 311, 525, 137);
+			contentPanel.add(PanelPlanificador);
 			{
 				JLabel lblFrecuencia = new JLabel("Frecuencia:");
 				lblFrecuencia.setBounds(10, 25, 135, 14);
-				Planificador.add(lblFrecuencia);
+				PanelPlanificador.add(lblFrecuencia);
 			}
 			
-			JSpinner spinner = new JSpinner();
-			spinner.setBounds(155, 22, 86, 20);
-			Planificador.add(spinner);
+			spnFrecuencia = new JSpinner();
+			spnFrecuencia.setBounds(155, 22, 86, 20);
+			PanelPlanificador.add(spnFrecuencia);
 		}
 		{
-			JPanel PanelJefe = new JPanel();
+			PanelJefe = new JPanel();
 			PanelJefe.setBounds(10, 311, 525, 137);
 			contentPanel.add(PanelJefe);
 			PanelJefe.setLayout(null);
@@ -228,10 +291,10 @@ public class RegTrabajador extends JDialog {
 				PanelJefe.add(lblCantidad);
 			}
 			{
-				textField_8 = new JTextField();
-				textField_8.setBounds(155, 22, 86, 20);
-				PanelJefe.add(textField_8);
-				textField_8.setColumns(10);
+				txtCantidad = new JTextField();
+				txtCantidad.setBounds(155, 22, 86, 20);
+				PanelJefe.add(txtCantidad);
+				txtCantidad.setColumns(10);
 			}
 		}
 		{
