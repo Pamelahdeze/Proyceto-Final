@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -13,6 +14,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import logico.Cliente;
+import logico.Empresa;
+import logico.Trabajador;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -25,13 +29,15 @@ import java.awt.event.ActionEvent;
 public class ListTrabajadores extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private static JTable table;
+	private static JTable tableTrabajadores;
 	private static Object[] fila;
 	private static DefaultTableModel tableModel;
 	private static JButton btnEliminar;
 	private static JButton btnModificar;
 	JComboBox cbxTipoTrabajador;
 	private int code;
+	private DefaultTableModel modeloTabla;
+	private List<Trabajador> trabajadores;
 
 	/**
 	 * Launch the application.
@@ -69,18 +75,25 @@ public class ListTrabajadores extends JDialog {
 			
 	
 		
-		table = new JTable();
-		table.addMouseListener(new MouseAdapter() {
+		tableTrabajadores = new JTable();
+		tableTrabajadores.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+					"ID","Nombre", "Tipo", "Direccion", "Salario"
+			}
+		));
+		tableTrabajadores.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
 			/*String country;
 				int delivery;*/
-				if(table.getSelectedRow()>=0){
+				if(tableTrabajadores.getSelectedRow()>=0){
 					btnEliminar.setEnabled(true);
 					btnModificar.setEnabled(true);
-					int index = table.getSelectedRow();
-					code = (int)table.getModel().getValueAt(index, 0);
+					int index = tableTrabajadores.getSelectedRow();
+					code = (int)tableTrabajadores.getModel().getValueAt(index, 0);
 					/*country = (String)tableSupply.getModel().getValueAt(index, 1);
 					delivery = (Integer)tableSupply.getModel().getValueAt(index, 2);
 					textFldSupplyName.setText(name);
@@ -93,7 +106,7 @@ public class ListTrabajadores extends JDialog {
 		String[] columnNames = {"ID","Nombre", "Apellidos", "Pago-Hora","Tipo"};
 		tableModel.setColumnIdentifiers(columnNames);
 		//loadTrabajador(0);
-		scrollPane.setViewportView(table);
+		scrollPane.setViewportView(tableTrabajadores);
 		
 			
 			JLabel lblTipoDeTrabajador = new JLabel("Tipo de Trabajador:");
@@ -106,109 +119,44 @@ public class ListTrabajadores extends JDialog {
 			panel.add(cbxTipoTrabajador);
 			
 			{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			
-			JButton btnModificar = new JButton("Modificar");
-			buttonPane.add(btnModificar);
-			{
-				JButton btnEliminar = new JButton("Eliminar");
-				btnEliminar.setActionCommand("OK");
-				buttonPane.add(btnEliminar);
-				getRootPane().setDefaultButton(btnEliminar);
-			}
-			{
-				JButton btnCancelar = new JButton("Cancelar");
-				btnCancelar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
-				btnCancelar.setActionCommand("Cancel");
-				buttonPane.add(btnCancelar);
-			}
-		}
-			
-		/*	public static void loadTrabajador(int selection) {
-				tableModel.setRowCount(0);
-				fila = new Object[tableModel.getColumnCount()];
-				switch (selection) {
-				case 0:
-					for (Trabajador aux : Empresa.getInstance().getMisTrabajadores()) {
-						fila[0] = aux.getId();
-						fila[1] = aux.getNombre();
-						fila[2] = aux.getApellidos();
-						fila[3] = aux.get();
-						if(aux instanceof Libro)
-							fila[4] = "Libro";
-						if(aux instanceof Revista)
-							fila[4] = "Revista";
-						if(aux instanceof Articulo)
-							fila[4] = "Artículo";
-						
-						tableModel.addRow(fila);
-					}
-					break;
-				case 1:
-					for (Publicacion aux : Biblioteca.getInstance().getMisPublicaciones()) {
-						if(aux instanceof Articulo){
-						fila[0] = aux.getId();
-						fila[1] = aux.getTitulo();
-						fila[2] = aux.getAutor();
-						fila[3] = aux.getMateria();
-						fila[4] = "Artículo";
-						
-						tableModel.addRow(fila);
-						}
-					}
-					break;	
-				case 2:
-					for (Publicacion aux : Biblioteca.getInstance().getMisPublicaciones()) {
-						if(aux instanceof Libro){
-						fila[0] = aux.getId();
-						fila[1] = aux.getTitulo();
-						fila[2] = aux.getAutor();
-						fila[3] = aux.getMateria();
-						fila[4] = "Libro";
-						
-						tableModel.addRow(fila);
-						}
-					}
-					break;	
-				case 3:
-					for (Publicacion aux : Biblioteca.getInstance().getMisPublicaciones()) {
-						if(aux instanceof Revista){
-						fila[0] = aux.getId();
-						fila[1] = aux.getTitulo();
-						fila[2] = aux.getAutor();
-						fila[3] = aux.getMateria();
-						fila[4] = "Revista";
-						
-						tableModel.addRow(fila);
-						}
-					}
-					break;	
-				}
+				JPanel buttonPane = new JPanel();
+				buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+				getContentPane().add(buttonPane, BorderLayout.SOUTH);
 				
-				
-				table.setModel(tableModel);
-				table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-				table.getTableHeader().setReorderingAllowed(false);
-				TableColumnModel columnModel = table.getColumnModel();
-				columnModel.getColumn(0).setPreferredWidth(60);
-				columnModel.getColumn(1).setPreferredWidth(180);
-				columnModel.getColumn(2).setPreferredWidth(150);
-				columnModel.getColumn(3).setPreferredWidth(130);
-				columnModel.getColumn(4).setPreferredWidth(81);
-				/*if(tableModel.getRowCount()==0){
-					btnEliminar.setEnabled(false);
-					btnModificar.setEnabled(false);
-				}*/
-				
-				
-			}	*/
+				JButton btnAgregar = new JButton("Agregar");
+				buttonPane.add(btnAgregar);
 	
+				JButton btnModificar = new JButton("Modificar");
+				buttonPane.add(btnModificar);
+				{
+					JButton btnEliminar = new JButton("Eliminar");
+					btnEliminar.setActionCommand("OK");
+					buttonPane.add(btnEliminar);
+					getRootPane().setDefaultButton(btnEliminar);
+				}
+				{
+					JButton btnCancelar = new JButton("Cancelar");
+					btnCancelar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							dispose();
+						}
+					});
+					btnCancelar.setActionCommand("Cancel");
+					buttonPane.add(btnCancelar);
+				}
+			}
+			
+			trabajadores = Empresa.getInstance().getMisTrabajadores();	
+			llenarTablaTrabajadores();
+			}	
+			private void llenarTablaTrabajadores() {
+		        modeloTabla = (DefaultTableModel) tableTrabajadores.getModel();
+		        int filas = modeloTabla.getRowCount();
+		        for(int i = filas-1; i >= 0 ;i--){
+		            modeloTabla.removeRow(i);
+		        }
+		        for(Trabajador trabajador: trabajadores){
+		            modeloTabla.addRow(new Object[]{trabajador.getIdentificador(),trabajador.getNombre(),trabajador.getClass().getName(),trabajador.getDireccion(),trabajador.getSalario()});
+		        }
+		   }
 	}
-}
-}

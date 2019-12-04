@@ -1,6 +1,8 @@
 package logico;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
    private String nombre;
    private String tipo;
    private String contraseña;

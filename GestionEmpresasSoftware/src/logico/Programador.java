@@ -1,15 +1,15 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Programador extends Trabajador {
+public class Programador extends Trabajador{
 
 	private ArrayList<String> lenguajesProgramacion;
 
-	public Programador(String identificador, String nombre, String apellido, String direccion, boolean sexo,
-			Date fechaNacimiento, float salario, String evaluacion, double precioHora, ArrayList<String> lenguajesProgramacion) {
-		super(identificador, nombre, apellido, direccion, sexo, fechaNacimiento, salario, evaluacion, precioHora);
+	public Programador(String identificador, String nombre, String apellido, String direccion, int edad, String sexo, float salario, String evaluacion, double precioHora, ArrayList<String> lenguajesProgramacion) {
+		super(identificador, nombre, apellido, direccion, edad, sexo, salario, evaluacion, precioHora);
 
 		this.lenguajesProgramacion = lenguajesProgramacion;
 	}

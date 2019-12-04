@@ -14,9 +14,8 @@ public class Disenador extends Trabajador {
 		this.tipo = tipo;
 	}
 
-	public Disenador(String identificador, String nombre, String apellido, String direccion, boolean sexo,
-			Date fechaNacimiento, float salario, String evaluacion, double precioHora, String tipo) {
-		super(identificador, nombre, apellido, direccion, sexo, fechaNacimiento, salario, evaluacion, precioHora);
+	public Disenador(String identificador, String nombre, String apellido, String direccion, int edad, String sexo, float salario, String evaluacion, double precioHora, String tipo) {
+		super(identificador, nombre, apellido, direccion, edad, sexo, salario, evaluacion, precioHora);
 		this.tipo = tipo;
 	}
 }

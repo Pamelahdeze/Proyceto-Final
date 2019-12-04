@@ -40,6 +40,8 @@ public class RegistrarCliente extends JDialog {
 	private JTextField textNombre;
 	private JTextField textDireccion;
 	private JDialog miDialog;
+	public static Cliente cliente = null;
+	private JSpinner spinnerCantidad;
 
 	/**
 	 * Launch the application.
@@ -53,7 +55,8 @@ public class RegistrarCliente extends JDialog {
 			e.printStackTrace();
 		}
 	}
-
+ 
+	
 	/**
 	 * Create the dialog.
 	 */
@@ -69,6 +72,7 @@ public class RegistrarCliente extends JDialog {
 		
 		setUndecorated(true);
 		
+	    
 		try {
 			textId = new JFormattedTextField(new MaskFormatter("##-###"));
 			textId.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -95,7 +99,7 @@ public class RegistrarCliente extends JDialog {
 		textDireccion.setBounds(211, 145, 230, 20);
 		contentPanel.add(textDireccion);
 		
-		JSpinner spinnerCantidad = new JSpinner();
+		spinnerCantidad = new JSpinner();
 		spinnerCantidad.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		spinnerCantidad.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
 		spinnerCantidad.setBounds(211, 200, 100, 20);
@@ -140,13 +144,28 @@ public class RegistrarCliente extends JDialog {
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(validarCamposCliente())
-					{	
-						Cliente cliente = new Cliente(textId.getText(),textNombre.getText(),textDireccion.getText());
-						Empresa.getInstance().RegistrarCliente(cliente);
-						JOptionPane.showMessageDialog(miDialog, "Cliente registrado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-					    clear();
+					{
+						if(cliente==null) {
+							Cliente cliente = new Cliente(textId.getText(),textNombre.getText(),textDireccion.getText(), (int)spinnerCantidad.getValue());
+							Empresa.getInstance().RegistrarCliente(cliente);
+							JOptionPane.showMessageDialog(miDialog, "Cliente registrado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+						    clear();
+						}
+						else {
+							cliente.setNombre(textNombre.getText());
+							cliente.setDireccion(textDireccion.getText());
+							cliente.setIndentificador(textId.getText());
+							cliente.setCantMaxProyectos((int)spinnerCantidad.getValue());
+							clear();
+							Empresa.getInstance().escribirDatos();
+							cliente = null;
+							JOptionPane.showMessageDialog(miDialog, "Cliente actualizado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+							closeDialog();
+							
+						}
 					}
 				}
+
 
 				private void clear() {
 					textId.setText(null);
@@ -182,8 +201,25 @@ public class RegistrarCliente extends JDialog {
 		contentPanel.add(lblDireccin);
 		lblDireccin.setForeground(SystemColor.desktop);
 		lblDireccin.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		
+		if(cliente != null) {
+	    	llenarCampos();
+	    }
+		
 	}
 	
+
+	private void closeDialog() {
+		this.dispose();
+	}
+	
+	private void llenarCampos() {
+		textNombre.setText(cliente.getNombre());
+		textDireccion.setText(cliente.getDireccion());
+		textId.setText(cliente.getIndentificador());
+		spinnerCantidad.setValue(cliente.getCantMaxProyectos());
+	}
+
 	private boolean validarCamposCliente() {
 		String mensajeValidacion = "";
 		boolean datosValidos = true;
@@ -200,7 +236,7 @@ public class RegistrarCliente extends JDialog {
 			mensajeValidacion += "*El identificador es necesario\n";
 			datosValidos = false;
 		}
-		else if(Empresa.getInstance().existeIdCliente(textId.getText())) {
+		else if(Empresa.getInstance().existeIdCliente(textId.getText()) && cliente == null) {
 			mensajeValidacion += "*El identificador ya ha sido utilizado\n";
 			datosValidos = false;
 		} 

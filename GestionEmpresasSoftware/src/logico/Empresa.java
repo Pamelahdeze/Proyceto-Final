@@ -54,7 +54,12 @@ public class Empresa {
 	public void setMisContratos(ArrayList<Contrato> misContratos) {
 		this.misContratos = misContratos;
 	}
+	
+	public void RegistrarContrato(Contrato contrato) {
+		misContratos.add(contrato);
+	}
 
+	//Métodos trabajadores
 	public ArrayList<Trabajador> getMisTrabajadores() {
 		return misTrabajadores;
 	}
@@ -63,34 +68,68 @@ public class Empresa {
 		this.misTrabajadores = misTrabajadores;
 	}
 	
+	public void RegistrarTrabajador(Trabajador aux) {
+		misTrabajadores.add(aux);
+		escribirDatos();
+	}
+	
+	public Trabajador obtenerTrabajador(String id) {
+		Trabajador trabajadorResultante = null;
+		for (Trabajador trabajador : this.misTrabajadores) {
+			 if(trabajador.getIdentificador().equals(id)) {
+				 trabajadorResultante = trabajador;
+				 break;
+			 }
+		}
+		return trabajadorResultante;
+	}
+	
+	public void eliminarTrabajador(Trabajador trabajador) {
+		misTrabajadores.remove(trabajador);
+		escribirDatos();
+	}
+	
+	public boolean existeIdTrabajador(String Id) {
+		 boolean existeId = false;
+		 for (Trabajador trabajador : this.misTrabajadores) {
+			 if(trabajador.getIdentificador().equals(Id)) {
+				 existeId = true;
+				 break;
+			 }
+		}
+		 return existeId;
+	}
+	
+	//Métodos para el manejo de clientes
+	
 	public ArrayList<Cliente> getMisClientes() {
 		return misClientes;
 	}
+	
 
 	public void setMisClientes(ArrayList<Cliente> misClientes) {
 		this.misClientes = misClientes;
-	}
-
-        public ArrayList<Usuario> getMisUsuarios() {
-		return misUsuarios;
-	}
-
-	public void setMisUsuarios(ArrayList<Usuario> misUsuarios) {
-		this.misUsuarios = misUsuarios;
-	}
-	
-	public void RegistrarTrabajador(Trabajador aux) {
-		misTrabajadores.add(aux);
-		
-	}
-	
-	public void RegistrarContrato(Contrato contrato) {
-		misContratos.add(contrato);
 	}
 	
 	public void RegistrarCliente(Cliente cliente) {
 		misClientes.add(cliente);
 		this.escribirDatos();
+	}
+	
+	public Cliente obtenerCliente(String id) {
+		Cliente clienteResultante = null;
+		for (Cliente cliente : this.misClientes) {
+			 if(cliente.getIndentificador().equals(id)) {
+				 clienteResultante = cliente;
+				 break;
+			 }
+		}
+		return clienteResultante;
+	}
+	
+	public void eliminarCliente(Cliente cliente) {
+		misClientes.remove(cliente);
+		escribirDatos();
 	}
 	
 	public boolean existeIdCliente(String Id) {
@@ -102,11 +141,47 @@ public class Empresa {
 		 }
 		 return existeId;
 	}
-        
-        public void RegistrarUsuario(Usuario usuario){
-               misUsuarios.add(usuario);
-               this.escribirDatos();
-        }
+	
+	//Métodos para el manejo de usuarios
+
+	public ArrayList<Usuario> getMisUsuarios() {
+		return misUsuarios;
+	}
+
+	public void setMisUsuarios(ArrayList<Usuario> misUsuarios) {
+		this.misUsuarios = misUsuarios;
+	}
+
+	public void RegistrarUsuario(Usuario usuario) {
+		misUsuarios.add(usuario);
+		this.escribirDatos();
+	}
+	
+	public Usuario obtenerUsuario(String nombre) {
+		Usuario usuarioResultante = null;
+		for (Usuario usuario : this.misUsuarios) {
+			 if(usuario.getNombre().equals(nombre)) {
+				 usuarioResultante = usuario;
+				 break;
+			 }
+		}
+		return usuarioResultante;
+	}
+	
+	public boolean existeUsuario(String name) {
+		 boolean existeUsuario = false;
+		 for (Usuario usuario : this.misUsuarios) {
+			 if(usuario.getNombre().equals(name)) {
+				 existeUsuario = true;
+			 }
+		 }
+		 return existeUsuario;
+	}
+	
+	public void eliminarUsuario(Usuario usuario) {
+		misUsuarios.remove(usuario);
+		escribirDatos();
+	}
         
 	public boolean IniciarSesion(String usuario, String password){
             for (Usuario user : this.misUsuarios) {
@@ -116,7 +191,7 @@ public class Empresa {
 				}
             }
             return false;
-        }
+    }
 
 	public void updateEvalacion(ArrayList<Proyecto> proyectos ) {
 		//verifica cant de proyectos atrazados y actualiza evaluacion

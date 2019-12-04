@@ -80,6 +80,14 @@ public class Principal extends JFrame {
 		mnTrabajador.add(mntmRegistrarTrabajador);
 		
 		JMenuItem mntmListarTrabajdor = new JMenuItem("Listar Trabajador");
+		mntmListarTrabajdor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ListTrabajadores listarTrabajadoresDialog = new ListTrabajadores();
+				listarTrabajadoresDialog.setModal(true);
+				listarTrabajadoresDialog.setLocationRelativeTo(null);
+				listarTrabajadoresDialog.setVisible(true);
+			}
+		});
 		mnTrabajador.add(mntmListarTrabajdor);
 		
 		JMenu mnCliente = new JMenu("Cliente");
@@ -89,7 +97,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmRegistrarCliente = new JMenuItem("Registrar Cliente");
 		mntmRegistrarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			RegistrarCliente clienteDialog = new RegistrarCliente();
+				RegistrarCliente clienteDialog = new RegistrarCliente();
 				clienteDialog.setModal(true);
 				clienteDialog.setLocationRelativeTo(null);
 				clienteDialog.setVisible(true);
@@ -98,6 +106,16 @@ public class Principal extends JFrame {
 		mnCliente.add(mntmRegistrarCliente);
 		
 		JMenuItem mntmListarClientes = new JMenuItem("Listar Clientes");
+		mntmListarClientes.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ListarUsuarios clientesDialog = new ListarUsuarios();
+				clientesDialog.setModal(true);
+				clientesDialog.setLocationRelativeTo(null);
+				clientesDialog.setVisible(true);
+			}
+		});
 		mnCliente.add(mntmListarClientes);
 		
 		JMenu mnContrato = new JMenu("Contrato");
@@ -157,10 +175,15 @@ public class Principal extends JFrame {
 		mnUsuarios.add(mntmRegistrarUsuario);
 		
 		JMenuItem mntmListarUsuarios = new JMenuItem("Listar Usuarios");
+		mntmListarUsuarios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ListarUsuarios listarUsuariosDialog = new ListarUsuarios();
+				listarUsuariosDialog.setModal(true);
+				listarUsuariosDialog.setLocationRelativeTo(null);
+				listarUsuariosDialog.setVisible(true);
+			}
+		});
 		mnUsuarios.add(mntmListarUsuarios);
-		
-		JMenuItem mntmCambiarContrasea = new JMenuItem("Cambiar Contrase\u00F1a");
-		mnUsuarios.add(mntmCambiarContrasea);
 		
 		JMenu mnSalir = new JMenu("Salir");
 		mnSalir.addMenuListener(new MenuListener() {

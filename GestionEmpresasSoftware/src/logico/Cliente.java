@@ -7,11 +7,22 @@ public class Cliente implements Serializable {
 	private String indentificador;
 	private String nombre;
 	private String direccion;
+	private int cantMaxProyectos;
 	
-	public Cliente(String indentificador, String nombre, String direccion) {
+	
+	public Cliente(String indentificador, String nombre, String direccion, int cantidad) {
 		this.indentificador = indentificador;
 		this.nombre = nombre;
 		this.direccion = direccion;
+		this.cantMaxProyectos = cantidad;
+	}
+	
+	public int getCantMaxProyectos() {
+		return cantMaxProyectos;
+	}
+
+	public void setCantMaxProyectos(int cantMaxProyectos) {
+		this.cantMaxProyectos = cantMaxProyectos;
 	}
 
 	public String getIndentificador() {

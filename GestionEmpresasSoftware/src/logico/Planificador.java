@@ -8,9 +8,8 @@ public class Planificador extends Trabajador {
 
 	private int frecPlanificacionTareas;
 
-	public Planificador(String identificador, String nombre, String apellido, String direccion, boolean sexo,
-			Date fechaNacimiento, float salario, String evaluacion, double precioHora, int frecPlanificacionTareas) {
-		super(identificador, nombre, apellido, direccion, sexo, fechaNacimiento, salario, evaluacion, precioHora);
+	public Planificador(String identificador, String nombre, String apellido, String direccion, int edad, String sexo, float salario, String evaluacion, double precioHora, int frecPlanificacionTareas) {
+		super(identificador, nombre, apellido, direccion, edad, sexo, salario, evaluacion, precioHora);
 		this.frecPlanificacionTareas = frecPlanificacionTareas;
 	}
 
