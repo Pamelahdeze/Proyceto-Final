@@ -306,7 +306,7 @@ public class Principal extends JFrame {
 		});
 		menuBar.add(mnSalir);
 		contentPane = new JPanel();
-		contentPane.setBackground(SystemColor.activeCaption);
+		contentPane.setBackground(SystemColor.inactiveCaption);
 		contentPane.setBorder(new LineBorder(SystemColor.desktop, 2, true));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
