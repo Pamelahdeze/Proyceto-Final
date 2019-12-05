@@ -30,6 +30,7 @@ import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
+import java.awt.Cursor;
 
 public class RegistrarUsuario extends JDialog {
 
@@ -63,7 +64,7 @@ public class RegistrarUsuario extends JDialog {
 		setBounds(100, 100, 500, 270);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.activeCaption);
-		contentPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
+		contentPanel.setBorder(new LineBorder(SystemColor.desktop, 2, true));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
@@ -124,12 +125,14 @@ public class RegistrarUsuario extends JDialog {
 		contentPanel.add(comboTipo);
 		
 		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(SystemColor.desktop, 2, true));
 		panel.setBackground(SystemColor.controlShadow);
 		panel.setBounds(0, 0, 206, 270);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		{
 			JButton okButton = new JButton("Registrar");
+			okButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			okButton.setBorder(new LineBorder(SystemColor.desktop, 3, true));
 			okButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 			okButton.setBackground(SystemColor.window);
@@ -210,6 +213,7 @@ public class RegistrarUsuario extends JDialog {
 		panel.add(lblNewLabel);
 		
 		JLabel label = new JLabel("X");
+		label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		label.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {

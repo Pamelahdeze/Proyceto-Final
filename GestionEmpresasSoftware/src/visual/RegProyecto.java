@@ -62,7 +62,6 @@ public class RegProyecto extends JDialog {
 		}
 	}
 
-	//No me deja
 	/**
 	 * Create the dialog.
 	 */

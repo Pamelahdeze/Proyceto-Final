@@ -56,7 +56,7 @@ public class ModificarContrato extends JDialog {
 		setBounds(100, 100, 530, 280);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.activeCaption);
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel.setBorder(new LineBorder(SystemColor.desktop, 2, true));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
@@ -67,6 +67,7 @@ public class ModificarContrato extends JDialog {
 		}
 		{
 			textField = new JTextField();
+			textField.setFont(new Font("Tahoma", Font.ITALIC, 13));
 			textField.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
 			textField.setBounds(310, 22, 200, 20);
 			contentPanel.add(textField);
@@ -80,6 +81,7 @@ public class ModificarContrato extends JDialog {
 		}
 		{
 			textField_1 = new JTextField();
+			textField_1.setFont(new Font("Tahoma", Font.ITALIC, 13));
 			textField_1.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
 			textField_1.setColumns(10);
 			textField_1.setBounds(310, 53, 200, 20);
@@ -99,6 +101,7 @@ public class ModificarContrato extends JDialog {
 		panel.add(lblFechaInicio);
 		
 		JFormattedTextField formattedTextField = new JFormattedTextField();
+		formattedTextField.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		formattedTextField.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
 		formattedTextField.setBounds(122, 34, 200, 20);
 		panel.add(formattedTextField);
@@ -109,6 +112,7 @@ public class ModificarContrato extends JDialog {
 		panel.add(lblFechaEntrega);
 		
 		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
+		formattedTextField_1.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		formattedTextField_1.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
 		formattedTextField_1.setBounds(122, 84, 200, 20);
 		panel.add(formattedTextField_1);
@@ -120,12 +124,14 @@ public class ModificarContrato extends JDialog {
 		}
 		{
 			JFormattedTextField formattedTextField_2 = new JFormattedTextField();
+			formattedTextField_2.setFont(new Font("Tahoma", Font.ITALIC, 13));
 			formattedTextField_2.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
 			formattedTextField_2.setBounds(122, 134, 200, 20);
 			panel.add(formattedTextField_2);
 		}
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(SystemColor.desktop, 2, true));
 		panel_1.setBackground(SystemColor.controlShadow);
 		panel_1.setBounds(0, 0, 178, 280);
 		contentPanel.add(panel_1);
@@ -150,6 +156,7 @@ public class ModificarContrato extends JDialog {
 		}
 		{
 			JLabel label = new JLabel("X");
+			label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			label.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent arg0) {
 					if (JOptionPane.showConfirmDialog(null, "¿Seguro que quiere cerrar la aplicación?","Confirmación",JOptionPane.YES_NO_OPTION) == 0) {

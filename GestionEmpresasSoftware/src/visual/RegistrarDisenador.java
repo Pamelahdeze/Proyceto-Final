@@ -16,6 +16,8 @@ import javax.swing.border.EmptyBorder;
 
 import logico.Empresa;
 import logico.Trabajador;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class RegistrarDisenador extends JDialog {
 
@@ -42,12 +44,12 @@ public class RegistrarDisenador extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegistrarDisenador() {
-		setBounds(100, 100, 637, 414);
+		setBounds(100, 100, 602, 375);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		JPanel panel = new JPanel();
+		panel.setBounds(75, 45, 470, 256);
 		panel.setLayout(null);
 
 		JLabel label = new JLabel("Dise\u00F1adores Disponibles:");
@@ -79,6 +81,24 @@ public class RegistrarDisenador extends JDialog {
 		JButton buttonMin = new JButton("<");
 		buttonMin.setBounds(187, 118, 89, 23);
 		panel.add(buttonMin);
+		contentPanel.setLayout(null);
+		{
+			JButton okButton = new JButton("Next");
+			okButton.setBounds(117, 11, 55, 23);
+			contentPanel.add(okButton);
+			okButton.setActionCommand("OK");
+			getRootPane().setDefaultButton(okButton);
+		}
+		{
+			JButton cancelButton = new JButton("Cancel");
+			cancelButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+				}
+			});
+			cancelButton.setBounds(42, 11, 65, 23);
+			contentPanel.add(cancelButton);
+			cancelButton.setActionCommand("Cancel");
+		}
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 				gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -95,22 +115,6 @@ public class RegistrarDisenador extends JDialog {
 						.addGap(33))
 				);
 		contentPanel.setLayout(gl_contentPanel);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("Next");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
-		}
 		listaDisponiblesModel = new DefaultListModel<String>();
 		for(Trabajador disenador: Empresa.getInstance().obtenerTrabajadoresPorTipo("Disenador")) {
 			listaDisponiblesModel.addElement(disenador.getIdentificador()+"| "+disenador.getNombre()+" "+disenador.getApellido());

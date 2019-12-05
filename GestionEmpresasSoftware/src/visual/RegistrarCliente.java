@@ -66,7 +66,7 @@ public class RegistrarCliente extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setForeground(new Color(175, 238, 238));
 		contentPanel.setBackground(SystemColor.activeCaption);
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel.setBorder(new LineBorder(SystemColor.desktop, 2, true));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
@@ -75,7 +75,7 @@ public class RegistrarCliente extends JDialog {
 	    
 		try {
 			textId = new JFormattedTextField(new MaskFormatter("##-###"));
-			textId.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			textId.setFont(new Font("Tahoma", Font.ITALIC, 13));
 			textId.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.activeCaptionText));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -86,26 +86,27 @@ public class RegistrarCliente extends JDialog {
 		textId.setColumns(10);
 		
 		textNombre = new JTextField();
-		textNombre.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		textNombre.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		textNombre.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
 		textNombre.setColumns(10);
 		textNombre.setBounds(211, 90, 230, 20);
 		contentPanel.add(textNombre);
 		
 		textDireccion = new JTextField();
-		textDireccion.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		textDireccion.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		textDireccion.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
 		textDireccion.setColumns(10);
 		textDireccion.setBounds(211, 145, 230, 20);
 		contentPanel.add(textDireccion);
 		
 		spinnerCantidad = new JSpinner();
-		spinnerCantidad.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		spinnerCantidad.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		spinnerCantidad.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
 		spinnerCantidad.setBounds(211, 200, 100, 20);
 		contentPanel.add(spinnerCantidad);
 		
 		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(SystemColor.desktop, 2, true));
 		panel.setBackground(SystemColor.controlShadow);
 		panel.setBounds(0, 0, 178, 256);
 		contentPanel.add(panel);
@@ -190,6 +191,7 @@ public class RegistrarCliente extends JDialog {
 		lblDireccin.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
 		JLabel label = new JLabel("X");
+		label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		label.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
