@@ -114,6 +114,10 @@ public class Proyecto {
 		
 		return false;
 	}
+
+	public void setTrabajadores(ArrayList<Trabajador> trabajadores) {
+		this.trabajadores = trabajadores;
+	}
 	
 	
 }
