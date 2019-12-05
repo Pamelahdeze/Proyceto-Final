@@ -24,11 +24,16 @@ import javax.swing.table.DefaultTableModel;
 import logico.Cliente;
 import logico.Empresa;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.Font;
+import java.awt.SystemColor;
 
 public class ListarClientes extends JDialog {
 
@@ -54,15 +59,19 @@ public class ListarClientes extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarClientes() {
-		setBounds(100, 100, 591, 391);
+		setBounds(100, 100, 580, 391);
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(SystemColor.controlHighlight);
+		contentPanel.setForeground(SystemColor.controlHighlight);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		setUndecorated(true);
 		contentPanel.setLayout(null);
 		{
 			JPanel panel = new JPanel();
-			panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Listado de Clientes", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel.setBounds(10, 10, 555, 298);
+			panel.setBackground(SystemColor.controlHighlight);
+			panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Listado de Clientes", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panel.setBounds(10, 47, 555, 298);
 			contentPanel.add(panel);
 			
 			JLabel lblBuscar = new JLabel("Buscar (c\u00F3digo):");
@@ -88,6 +97,29 @@ public class ListarClientes extends JDialog {
 				}
 			});
 			textBuscar.setColumns(20);
+			
+			JLabel label = new JLabel("X");
+			label.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					if (JOptionPane.showConfirmDialog(null, "¿Seguro que quiere cerrar la aplicación?","Confirmación",JOptionPane.YES_NO_OPTION) == 0) {
+						ListarClientes.this.dispose();
+					}
+
+				}
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					label.setForeground(Color.RED);
+				}
+				public void mouseExited(MouseEvent e) {
+					label.setForeground(Color.WHITE);
+				}
+			});
+			label.setHorizontalAlignment(SwingConstants.CENTER);
+			label.setForeground(Color.WHITE);
+			label.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
+			label.setBounds(545, 11, 20, 20);
+			contentPanel.add(label);
 			
 			JScrollPane scrollPane = new JScrollPane();
 			GroupLayout gl_panel = new GroupLayout(panel);
@@ -129,11 +161,14 @@ public class ListarClientes extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(SystemColor.controlHighlight);
+			buttonPane.setForeground(SystemColor.controlHighlight);
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnAgregar = new JButton("Agregar");
-				btnAgregar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+				btnAgregar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+				//btnAgregar.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
 				btnAgregar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						RegistrarCliente clienteDialog = new RegistrarCliente();
@@ -148,7 +183,8 @@ public class ListarClientes extends JDialog {
 			}
 			{
 				JButton btnEliminar = new JButton("Eliminar");
-				btnEliminar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+				btnEliminar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+				//btnEliminar.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
 				btnEliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						 if (tableClientes.getSelectedRow() != -1) {
@@ -169,7 +205,7 @@ public class ListarClientes extends JDialog {
 			}
 			{
 				JButton okButton = new JButton("Modificar");
-				okButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+				okButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						if(tableClientes.getSelectedRow() != -1)
@@ -180,23 +216,9 @@ public class ListarClientes extends JDialog {
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
-			{
-				JButton cancelButton = new JButton("Cancelar");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						closeDialog();
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
 		}
 		clientes = Empresa.getInstance().getMisClientes();
 		llenarTablaClientes();
-	}
-	
-	private void closeDialog() {
-		this.dispose();
 	}
 	
 	private void modificar() {
