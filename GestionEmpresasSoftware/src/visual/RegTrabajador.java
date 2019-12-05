@@ -41,6 +41,11 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextArea;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class RegTrabajador extends JDialog {
 
@@ -72,6 +77,7 @@ public class RegTrabajador extends JDialog {
 	private JButton buttonMin;
 	private JSpinner spinnerEdad;
 	private JComboBox comboTipo;
+	private JLabel label;
 
 	/**
 	 * Launch the application.
@@ -94,117 +100,149 @@ public class RegTrabajador extends JDialog {
 		lenguajesDisponiblesList = new JList<String>();
 		lenguajesSeleccionadosList = new JList<String>();
 		lenguajesDisponiblesScroll = new JScrollPane();
+		lenguajesDisponiblesScroll.setFont(new Font("Tahoma", Font.ITALIC, 13));
+		lenguajesDisponiblesScroll.setBorder(new LineBorder(SystemColor.desktop, 1, true));
 		lenguajesSeleccionadosScroll = new JScrollPane();
+		lenguajesSeleccionadosScroll.setFont(new Font("Tahoma", Font.ITALIC, 13));
+		lenguajesSeleccionadosScroll.setBorder(new LineBorder(SystemColor.desktop, 1, true));
 		lenguajesDisponiblesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		lenguajesSeleccionadosList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		setBounds(100, 100, 560, 531);
+		setUndecorated(true);
+		setBounds(100, 100, 610, 531);
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(SystemColor.activeCaption);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JPanel panel = new JPanel();
-			panel.setBorder(new TitledBorder(null, "Datos Generales", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel.setBounds(10, 11, 525, 230);
+			panel.setBackground(SystemColor.activeCaption);
+			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datos Generales", TitledBorder.CENTER, TitledBorder.TOP, null, SystemColor.window));
+			panel.setBounds(10, 22, 590, 219);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
 				JLabel lblId = new JLabel("ID:");
+				lblId.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 				lblId.setBounds(10, 32, 46, 14);
 				panel.add(lblId);
 			}
 			{
 				try {
 					textId = new JFormattedTextField(new MaskFormatter("##-###"));
-					textId.setFont(new Font("Tahoma", Font.PLAIN, 13));
+					textId.setFont(new Font("Tahoma", Font.ITALIC, 13));
 					textId.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.activeCaptionText));
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				textId.setBounds(130, 29, 86, 20);
+				textId.setBounds(130, 29, 106, 20);
 				panel.add(textId);
 				textId.setColumns(10);
 			}
 			{
 				JLabel lblNombre = new JLabel("Nombre:");
+				lblNombre.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 				lblNombre.setBounds(10, 69, 56, 14);
 				panel.add(lblNombre);
 			}
 			{
 				textNombre = new JTextField();
-				textNombre.setBounds(76, 66, 140, 20);
+				textNombre.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
+				textNombre.setFont(new Font("Tahoma", Font.ITALIC, 13));
+				textNombre.setBounds(86, 66, 150, 20);
 				panel.add(textNombre);
 				textNombre.setColumns(10);
 			}
 			{
 				JLabel lblApellidos = new JLabel("Apellidos:");
-				lblApellidos.setBounds(10, 107, 56, 14);
+				lblApellidos.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+				lblApellidos.setBounds(10, 107, 66, 14);
 				panel.add(lblApellidos);
 			}
 			{
 				textApellido = new JTextField();
-				textApellido.setBounds(76, 104, 140, 20);
+				textApellido.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
+				textApellido.setFont(new Font("Tahoma", Font.ITALIC, 13));
+				textApellido.setBounds(86, 104, 150, 20);
 				panel.add(textApellido);
 				textApellido.setColumns(10);
 			}
 			{
 				JLabel lblSexo = new JLabel("Sexo:");
+				lblSexo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 				lblSexo.setBounds(10, 146, 46, 14);
 				panel.add(lblSexo);
 			}
 			{
 				textSexo = new JTextField();
-				textSexo.setBounds(130, 143, 86, 20);
+				textSexo.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
+				textSexo.setFont(new Font("Tahoma", Font.ITALIC, 13));
+				textSexo.setBounds(130, 143, 106, 20);
 				panel.add(textSexo);
 				textSexo.setColumns(10);
 			}
 			{
 				JLabel lblEdad = new JLabel("Edad:");
-				lblEdad.setBounds(279, 68, 46, 14);
+				lblEdad.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+				lblEdad.setBounds(297, 69, 46, 14);
 				panel.add(lblEdad);
 			}
 			
 			spinnerEdad = new JSpinner();
-			spinnerEdad.setBounds(368, 66, 86, 20);
+			spinnerEdad.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
+			spinnerEdad.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+			spinnerEdad.setBounds(414, 67, 166, 20);
 			panel.add(spinnerEdad);
 			
 			JLabel lblSalario = new JLabel("Salario:");
-			lblSalario.setBounds(279, 105, 46, 14);
+			lblSalario.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+			lblSalario.setBounds(297, 107, 68, 14);
 			panel.add(lblSalario);
 			
 			textSalario = new JTextField();
-			textSalario.setBounds(368, 104, 140, 20);
+			textSalario.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
+			textSalario.setFont(new Font("Tahoma", Font.ITALIC, 13));
+			textSalario.setBounds(414, 105, 166, 20);
 			panel.add(textSalario);
 			textSalario.setColumns(10);
 			
 			JLabel lblPagoPorHora = new JLabel("Pago por Hora:");
-			lblPagoPorHora.setBounds(279, 143, 86, 14);
+			lblPagoPorHora.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+			lblPagoPorHora.setBounds(297, 146, 117, 14);
 			panel.add(lblPagoPorHora);
 			
 			textPagoPorHora = new JTextField();
-			textPagoPorHora.setBounds(368, 143, 140, 20);
+			textPagoPorHora.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
+			textPagoPorHora.setFont(new Font("Tahoma", Font.ITALIC, 13));
+			textPagoPorHora.setBounds(414, 144, 166, 20);
 			panel.add(textPagoPorHora);
 			textPagoPorHora.setColumns(10);
 			
 			JLabel lblDireccin = new JLabel("Direcci\u00F3n:");
-			lblDireccin.setBounds(10, 189, 61, 14);
+			lblDireccin.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+			lblDireccin.setBounds(10, 189, 66, 14);
 			panel.add(lblDireccin);
 			
 			textDireccion = new JTextField();
-			textDireccion.setBounds(76, 186, 432, 20);
+			textDireccion.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
+			textDireccion.setFont(new Font("Tahoma", Font.ITALIC, 13));
+			textDireccion.setBounds(86, 187, 494, 20);
 			panel.add(textDireccion);
 			textDireccion.setColumns(10);
 		}
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Tipo", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 252, 525, 48);
+		panel.setBackground(SystemColor.activeCaption);
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Tipo", TitledBorder.CENTER, TitledBorder.TOP, null, SystemColor.window));
+		panel.setBounds(10, 252, 590, 48);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		{
 			rdbtnDisenador = new JRadioButton("Dise\u00F1ador");
+			rdbtnDisenador.setBackground(SystemColor.activeCaption);
+			rdbtnDisenador.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 			rdbtnDisenador.setSelected(true);
 			rdbtnDisenador.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -227,6 +265,8 @@ public class RegTrabajador extends JDialog {
 		}
 		{
 			rdbtnJefe = new JRadioButton("Jefe de Proyecto");
+			rdbtnJefe.setBackground(SystemColor.activeCaption);
+			rdbtnJefe.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 			rdbtnJefe.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					PanelDiseñador.setVisible(false);
@@ -239,11 +279,13 @@ public class RegTrabajador extends JDialog {
 					rdbtnPlanificador.setSelected(false);
 				}
 			});
-			rdbtnJefe.setBounds(130, 18, 134, 23);
+			rdbtnJefe.setBounds(138, 18, 153, 23);
 			panel.add(rdbtnJefe);
 		}
 		{
 			rdbtnProgramador = new JRadioButton("Programador");
+			rdbtnProgramador.setBackground(SystemColor.activeCaption);
+			rdbtnProgramador.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 			rdbtnProgramador.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					PanelDiseñador.setVisible(false);
@@ -256,11 +298,13 @@ public class RegTrabajador extends JDialog {
 					rdbtnPlanificador.setSelected(false);
 				}
 			});
-			rdbtnProgramador.setBounds(277, 18, 109, 23);
+			rdbtnProgramador.setBounds(312, 18, 127, 23);
 			panel.add(rdbtnProgramador);
 		}
 		{
 			rdbtnPlanificador = new JRadioButton("Planificador");
+			rdbtnPlanificador.setBackground(SystemColor.activeCaption);
+			rdbtnPlanificador.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 			rdbtnPlanificador.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					PanelDiseñador.setVisible(false);
@@ -274,34 +318,42 @@ public class RegTrabajador extends JDialog {
 					
 				}
 			});
-			rdbtnPlanificador.setBounds(402, 18, 109, 23);
+			rdbtnPlanificador.setBounds(460, 18, 109, 23);
 			panel.add(rdbtnPlanificador);
 		}
 		{
 			PanelDiseñador = new JPanel();
-			PanelDiseñador.setBounds(10, 311, 525, 137);
+			PanelDiseñador.setBorder(new LineBorder(SystemColor.window));
+			PanelDiseñador.setBackground(SystemColor.activeCaption);
+			PanelDiseñador.setBounds(10, 311, 590, 175);
 			contentPanel.add(PanelDiseñador);
 			PanelDiseñador.setLayout(null);
 			{
 				JLabel lblTipo = new JLabel("Tipo:");
+				lblTipo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 				lblTipo.setBounds(10, 25, 54, 14);
 				PanelDiseñador.add(lblTipo);
 			}
 			{
 				comboTipo = new JComboBox();
+				comboTipo.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
+				comboTipo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 				comboTipo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "App M\u00F3vil", "Escritorio", "Web"}));
-				comboTipo.setBounds(110, 22, 131, 20);
+				comboTipo.setBounds(74, 23, 131, 20);
 				PanelDiseñador.add(comboTipo);
 			}
 		}
 		{
 			panelProgramador = new JPanel();
+			panelProgramador.setBorder(new LineBorder(SystemColor.window, 1, true));
+			panelProgramador.setBackground(SystemColor.activeCaption);
 			panelProgramador.setLayout(null);
-			panelProgramador.setBounds(10, 311, 525, 137);
+			panelProgramador.setBounds(10, 311, 590, 175);
 			contentPanel.add(panelProgramador);
 			
 			{
-				JLabel labelDisp = new JLabel("Disponibles");
+				JLabel labelDisp = new JLabel("Disponibles:");
+				labelDisp.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 				labelDisp.setBounds(10, 0, 100, 40);
 				panelProgramador.add(labelDisp);
 				
@@ -311,6 +363,9 @@ public class RegTrabajador extends JDialog {
 				panelProgramador.add(lenguajesDisponiblesScroll);
 				
 				buttonAdd = new JButton(" >");
+				buttonAdd.setBackground(SystemColor.window);
+				buttonAdd.setBorder(new LineBorder(SystemColor.desktop, 3, true));
+				buttonAdd.setFont(new Font("Tahoma", Font.BOLD, 13));
 				buttonAdd.setBounds(246, 30, 50, 35);
 				buttonAdd.addActionListener(new ActionListener() {
 					
@@ -324,6 +379,9 @@ public class RegTrabajador extends JDialog {
 				panelProgramador.add(buttonAdd);
 				
 				buttonMin = new JButton(" <");
+				buttonMin.setBackground(SystemColor.window);
+				buttonMin.setFont(new Font("Tahoma", Font.BOLD, 13));
+				buttonMin.setBorder(new LineBorder(SystemColor.desktop, 3, true));
 				buttonMin.setBounds(246, 70, 50, 35);
 				buttonMin.addActionListener(new ActionListener() {
 					
@@ -345,65 +403,86 @@ public class RegTrabajador extends JDialog {
 		}
 		{
 			PanelPlanificador = new JPanel();
+			PanelPlanificador.setBorder(new LineBorder(SystemColor.window, 1, true));
+			PanelPlanificador.setBackground(SystemColor.activeCaption);
 			PanelPlanificador.setLayout(null);
-			PanelPlanificador.setBounds(10, 311, 525, 137);
+			PanelPlanificador.setBounds(10, 311, 590, 175);
 			contentPanel.add(PanelPlanificador);
 			{
 				JLabel lblFrecuencia = new JLabel("Frecuencia:");
+				lblFrecuencia.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 				lblFrecuencia.setBounds(10, 25, 135, 14);
 				PanelPlanificador.add(lblFrecuencia);
 			}
 			
 			spnFrecuencia = new JSpinner();
-			spnFrecuencia.setBounds(155, 22, 86, 20);
+			spnFrecuencia.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
+			spnFrecuencia.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+			spnFrecuencia.setBounds(90, 22, 86, 20);
 			PanelPlanificador.add(spnFrecuencia);
 		}
 		{
 			PanelJefe = new JPanel();
-			PanelJefe.setBounds(10, 311, 525, 137);
+			PanelJefe.setBorder(new LineBorder(SystemColor.window, 1, true));
+			PanelJefe.setBackground(SystemColor.activeCaption);
+			PanelJefe.setBounds(10, 311, 590, 175);
 			contentPanel.add(PanelJefe);
 			PanelJefe.setLayout(null);
 			{
 				JLabel lblCantidad = new JLabel("Cantidad de Trabajadores:");
-				lblCantidad.setBounds(10, 25, 135, 14);
+				lblCantidad.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+				lblCantidad.setBounds(10, 25, 200, 14);
 				PanelJefe.add(lblCantidad);
 			}
 			{
 				spnCantidad = new JSpinner();
-				spnCantidad.setBounds(155, 22, 86, 20);
+				spnCantidad.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+				spnCantidad.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.desktop));
+				spnCantidad.setBounds(195, 22, 86, 20);
 				PanelJefe.add(spnCantidad);
 				//txtCantidad.setColumns(10);
 			}
 		}
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("Registrar");
-				okButton.addActionListener(new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						registrarTrabajador();
+			JButton okButton = new JButton("Registrar");
+			okButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+			okButton.setBackground(SystemColor.window);
+			okButton.setBorder(new LineBorder(SystemColor.desktop, 3, true));
+			okButton.setBounds(230, 497, 150, 23);
+			contentPanel.add(okButton);
+			okButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					registrarTrabajador();
+				}
+			});
+			okButton.setActionCommand("OK");
+			getRootPane().setDefaultButton(okButton);
+		}
+		{
+			label = new JLabel("X");
+			label.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					if (JOptionPane.showConfirmDialog(null, "¿Seguro que quiere cerrar la aplicación?","Confirmación",JOptionPane.YES_NO_OPTION) == 0) {
+						RegTrabajador.this.dispose();
 					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancelar");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-					
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
-			
+
+				}
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					label.setForeground(Color.RED);
+				}
+				public void mouseExited(MouseEvent e) {
+					label.setForeground(Color.WHITE);
+				}
+			});
+			label.setHorizontalAlignment(SwingConstants.CENTER);
+			label.setForeground(Color.WHITE);
+			label.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
+			label.setBounds(590, 0, 20, 20);
+			contentPanel.add(label);
 		}
 		llenarListaLenguajes();
 	}
