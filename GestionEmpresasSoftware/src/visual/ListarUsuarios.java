@@ -26,11 +26,16 @@ import logico.Empresa;
 import logico.Usuario;
 
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.Font;
+import java.awt.SystemColor;
 
 public class ListarUsuarios extends JDialog {
 
@@ -56,15 +61,18 @@ public class ListarUsuarios extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarUsuarios() {
-		setBounds(100, 100, 591, 391);
+		setBounds(100, 100, 583, 391);
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(SystemColor.controlHighlight);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setUndecorated(true);
 		{
 			JPanel panel = new JPanel();
+			panel.setBackground(SystemColor.controlHighlight);
 			panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Listado de Usuarios", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel.setBounds(10, 10, 555, 298);
+			panel.setBounds(10, 34, 555, 298);
 			contentPanel.add(panel);
 			
 			JLabel lblBuscar = new JLabel("Buscar (nombre):");
@@ -90,6 +98,29 @@ public class ListarUsuarios extends JDialog {
 				}
 			});
 			textBuscar.setColumns(20);
+			
+			JLabel label = new JLabel("X");
+			label.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					if (JOptionPane.showConfirmDialog(null, "¿Seguro que quiere cerrar la aplicación?","Confirmación",JOptionPane.YES_NO_OPTION) == 0) {
+						ListarUsuarios.this.dispose();
+					}
+
+				}
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					label.setForeground(Color.RED);
+				}
+				public void mouseExited(MouseEvent e) {
+					label.setForeground(Color.WHITE);
+				}
+			});
+			label.setHorizontalAlignment(SwingConstants.CENTER);
+			label.setForeground(Color.WHITE);
+			label.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
+			label.setBounds(545, 11, 20, 20);
+			contentPanel.add(label);
 			
 			JScrollPane scrollPane = new JScrollPane();
 			GroupLayout gl_panel = new GroupLayout(panel);
@@ -131,11 +162,12 @@ public class ListarUsuarios extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(SystemColor.controlHighlight);
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnAgregar = new JButton("Agregar");
-				btnAgregar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+				btnAgregar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 				btnAgregar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						RegistrarUsuario usuariosDialog = new RegistrarUsuario();
@@ -150,7 +182,7 @@ public class ListarUsuarios extends JDialog {
 			}
 			{
 				JButton btnEliminar = new JButton("Eliminar");
-				btnEliminar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+				btnEliminar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 				btnEliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						 if (tableUsuarios.getSelectedRow() != -1) {
@@ -171,7 +203,7 @@ public class ListarUsuarios extends JDialog {
 			}
 			{
 				JButton okButton = new JButton("Modificar");
-				okButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+				okButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						if(tableUsuarios.getSelectedRow() != -1)
@@ -182,26 +214,9 @@ public class ListarUsuarios extends JDialog {
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
-			{
-				JButton cancelButton = new JButton("Cancelar");
-				cancelButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						closeDialog();
-					}
-
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
 		}
 		usuarios = Empresa.getInstance().getMisUsuarios();
 		llenarTablaUsuarios();
-	}
-	
-
-	private void closeDialog() {
-		this.dispose();
 	}
 	
 	private void modificar() {
