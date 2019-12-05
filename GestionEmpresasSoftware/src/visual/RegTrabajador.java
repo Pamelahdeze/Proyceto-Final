@@ -102,8 +102,8 @@ public class RegTrabajador extends JDialog {
 		lenguajesDisponiblesScroll = new JScrollPane();
 		lenguajesDisponiblesScroll.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		lenguajesDisponiblesScroll.setBorder(new LineBorder(SystemColor.desktop, 1, true));
-		lenguajesSeleccionadosScroll.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		lenguajesSeleccionadosScroll = new JScrollPane();
+		lenguajesSeleccionadosScroll.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		lenguajesSeleccionadosScroll.setBorder(new LineBorder(SystemColor.desktop, 1, true));
 		lenguajesDisponiblesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		lenguajesSeleccionadosList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
