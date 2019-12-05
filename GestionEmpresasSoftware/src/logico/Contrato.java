@@ -4,20 +4,28 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Contrato implements Serializable{
-	//private String identificador;
+	private String identificador;
 	private Proyecto proyecto;
+	
 	private Cliente cliente;
 	private Date fechaInicio;
 	private Date fechaEntrega;	
 	private Date fechaProrroga;
 	
 	public Contrato(String identificador, Proyecto proyecto, Cliente cliente, Date fechaInicio, Date fechaEntrega, Date fechaProrroga) {
-		//this.identificador = identificador;
+		this.identificador = identificador;
 		this.proyecto = proyecto;
 		this.cliente = cliente;
 		this.fechaInicio = fechaInicio;
 		this.fechaEntrega = fechaEntrega;
 		this.fechaProrroga = fechaProrroga;
+	}
+	public Proyecto getProyecto() {
+		return proyecto;
+	}
+
+	public void setProyecto(Proyecto proyecto) {
+		this.proyecto = proyecto;
 	}
 	
 	public Date getFechaInicio() {
@@ -36,13 +44,13 @@ public class Contrato implements Serializable{
 		this.fechaEntrega = fechaEntrega;
 	}
 
-//	public String getIdentificadorContrato() {
-//		return this.identificador;
-//	}
-//
-//	public void setIdentificadorContrato(String identificadorContrato) {
-//		this.identificador = identificadorContrato;
-//	}
+	public String getIdentificadorContrato() {
+		return this.identificador;
+	}
+
+	public void setIdentificadorContrato(String identificadorContrato) {
+		this.identificador = identificadorContrato;
+	}
 
 	public String getIdentificadorCliente() {
 		return cliente.getIndentificador();

@@ -32,6 +32,8 @@ public class Empresa {
 	private ArrayList<Cliente> misClientes;
     private ArrayList<Usuario> misUsuarios;
 	private static Empresa miEmpresa=null;
+	public static Proyecto proyectoCreacion = null;
+	public static ArrayList<Trabajador> trabajadoresProyectoCreacion = new ArrayList<Trabajador>();
 	public Usuario usuarioLogeado;
 	
 	public Empresa() {
@@ -58,6 +60,21 @@ public class Empresa {
 	public void RegistrarContrato(Contrato contrato) {
 		misContratos.add(contrato);
 	}
+	public Contrato obtenerContrator(String id) {
+		Contrato ContratoResultante = null;
+		for (Contrato contrato : this.misContratos) {
+			 if(contrato.getIdentificadorContrato().equals(id)) {
+				 ContratoResultante = contrato;
+				 break;
+			 }
+		}
+		return ContratoResultante;
+	}
+	
+	public void eliminarContrato(Contrato contrato) {
+		misContratos.remove(contrato);
+		escribirDatos();
+	}
 
 	//Métodos trabajadores
 	public ArrayList<Trabajador> getMisTrabajadores() {
@@ -73,15 +90,14 @@ public class Empresa {
 		escribirDatos();
 	}
 	
-	public Trabajador obtenerTrabajador(String id) {
-		Trabajador trabajadorResultante = null;
+	public ArrayList<Trabajador> obtenerTrabajadoresPorTipo(String clase){
+		ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
 		for (Trabajador trabajador : this.misTrabajadores) {
-			 if(trabajador.getIdentificador().equals(id)) {
-				 trabajadorResultante = trabajador;
-				 break;
+			 if(trabajador.getClass().getSimpleName().equals(clase) ) {
+				 trabajadores.add(trabajador);
 			 }
 		}
-		return trabajadorResultante;
+		return trabajadores;
 	}
 	
 	public void eliminarTrabajador(Trabajador trabajador) {
@@ -99,7 +115,19 @@ public class Empresa {
 		}
 		 return existeId;
 	}
-	
+	public boolean validarJefe(Trabajador trabajador) {
+		boolean jefeApto = true;
+		int cantidadProyectos = 0;
+		for(Contrato contrato:misContratos) {
+			if(contrato.getProyecto().getTrabajadores().contains(trabajador)) {
+				cantidadProyectos++;
+			}
+		}
+		if(cantidadProyectos > 1) {
+			jefeApto = false;
+		}
+		return jefeApto;
+	}
 	//Métodos para el manejo de clientes
 	
 	public ArrayList<Cliente> getMisClientes() {
