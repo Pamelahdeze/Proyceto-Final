@@ -136,7 +136,7 @@ public class RegistrarCliente extends JDialog {
 			okButton.setBackground(SystemColor.activeCaption);
 			okButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			okButton.setHorizontalTextPosition(SwingConstants.CENTER);
-			okButton.setFont(new Font("Tahoma", Font.BOLD, 13));
+			okButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 			okButton.setOpaque(false);
 			okButton.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
 			okButton.setBounds(10, 222, 158, 23);
