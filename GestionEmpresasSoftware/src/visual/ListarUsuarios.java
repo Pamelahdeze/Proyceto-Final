@@ -30,6 +30,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Font;
 
 public class ListarUsuarios extends JDialog {
 
@@ -67,6 +68,7 @@ public class ListarUsuarios extends JDialog {
 			contentPanel.add(panel);
 			
 			JLabel lblBuscar = new JLabel("Buscar (nombre):");
+			lblBuscar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 			
 			textBuscar = new JTextField();
 			textBuscar.setToolTipText("");
@@ -133,6 +135,7 @@ public class ListarUsuarios extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnAgregar = new JButton("Agregar");
+				btnAgregar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 				btnAgregar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						RegistrarUsuario usuariosDialog = new RegistrarUsuario();
@@ -147,6 +150,7 @@ public class ListarUsuarios extends JDialog {
 			}
 			{
 				JButton btnEliminar = new JButton("Eliminar");
+				btnEliminar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 				btnEliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						 if (tableUsuarios.getSelectedRow() != -1) {
@@ -167,6 +171,7 @@ public class ListarUsuarios extends JDialog {
 			}
 			{
 				JButton okButton = new JButton("Modificar");
+				okButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						if(tableUsuarios.getSelectedRow() != -1)
@@ -179,6 +184,7 @@ public class ListarUsuarios extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						closeDialog();

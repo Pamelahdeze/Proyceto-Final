@@ -25,6 +25,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.SystemColor;
 
 public class ListTrabajadores extends JDialog {
 
@@ -56,13 +58,16 @@ public class ListTrabajadores extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListTrabajadores() {
+		setForeground(SystemColor.activeCaption);
 		setBounds(100, 100, 702, 410);
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(SystemColor.activeCaption);
 		contentPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setForeground(SystemColor.activeCaption);
 		panel.setBorder(new TitledBorder(null, "Listado de Trabajadores", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(10, 11, 666, 316);
 		contentPanel.add(panel);
@@ -110,26 +115,32 @@ public class ListTrabajadores extends JDialog {
 		
 			
 			JLabel lblTipoDeTrabajador = new JLabel("Tipo de Trabajador:");
+			lblTipoDeTrabajador.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 			lblTipoDeTrabajador.setBounds(10, 32, 111, 14);
 			panel.add(lblTipoDeTrabajador);
 			
 			JComboBox cbxTipoTrabajador = new JComboBox();
+			cbxTipoTrabajador.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 			cbxTipoTrabajador.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Dise\u00F1ador", "Jefe de Proyecto", "Programador", "Planificador"}));
-			cbxTipoTrabajador.setBounds(118, 29, 124, 20);
+			cbxTipoTrabajador.setBounds(131, 29, 124, 20);
 			panel.add(cbxTipoTrabajador);
 			
 			{
 				JPanel buttonPane = new JPanel();
+				buttonPane.setForeground(SystemColor.activeCaption);
 				buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 				getContentPane().add(buttonPane, BorderLayout.SOUTH);
 				
 				JButton btnAgregar = new JButton("Agregar");
+				btnAgregar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 				buttonPane.add(btnAgregar);
 	
 				JButton btnModificar = new JButton("Modificar");
+				btnModificar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 				buttonPane.add(btnModificar);
 				{
 					JButton btnEliminar = new JButton("Eliminar");
+					btnEliminar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 					btnEliminar.setActionCommand("OK");
 					buttonPane.add(btnEliminar);
 					getRootPane().setDefaultButton(btnEliminar);
