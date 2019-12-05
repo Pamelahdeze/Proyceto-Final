@@ -20,13 +20,13 @@ import logico.Trabajador;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Font;
-import java.awt.SystemColor;
 
 public class ListTrabajadores extends JDialog {
 
@@ -58,16 +58,13 @@ public class ListTrabajadores extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListTrabajadores() {
-		setForeground(SystemColor.activeCaption);
 		setBounds(100, 100, 702, 410);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(SystemColor.activeCaption);
 		contentPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setForeground(SystemColor.activeCaption);
 		panel.setBorder(new TitledBorder(null, "Listado de Trabajadores", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(10, 11, 666, 316);
 		contentPanel.add(panel);
@@ -81,6 +78,7 @@ public class ListTrabajadores extends JDialog {
 	
 		
 		tableTrabajadores = new JTable();
+		tableTrabajadores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableTrabajadores.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -88,25 +86,18 @@ public class ListTrabajadores extends JDialog {
 					"ID","Nombre", "Tipo", "Direccion", "Salario"
 			}
 		));
-		tableTrabajadores.addMouseListener(new MouseAdapter() {
+		/*tableTrabajadores.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-			/*String country;
-				int delivery;*/
+			
 				if(tableTrabajadores.getSelectedRow()>=0){
 					btnEliminar.setEnabled(true);
 					btnModificar.setEnabled(true);
 					int index = tableTrabajadores.getSelectedRow();
 					code = (int)tableTrabajadores.getModel().getValueAt(index, 0);
-					/*country = (String)tableSupply.getModel().getValueAt(index, 1);
-					delivery = (Integer)tableSupply.getModel().getValueAt(index, 2);
-					textFldSupplyName.setText(name);
-					spnDelivery.getModel().setValue(Integer.valueOf(delivery));
-					cbCountry.getModel().setSelectedItem(new String(country));*/
 				}
 			}
-		});
+		});*/
 		tableModel = new DefaultTableModel();
 		String[] columnNames = {"ID","Nombre", "Apellidos", "Pago-Hora","Tipo"};
 		tableModel.setColumnIdentifiers(columnNames);
@@ -115,32 +106,73 @@ public class ListTrabajadores extends JDialog {
 		
 			
 			JLabel lblTipoDeTrabajador = new JLabel("Tipo de Trabajador:");
-			lblTipoDeTrabajador.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 			lblTipoDeTrabajador.setBounds(10, 32, 111, 14);
 			panel.add(lblTipoDeTrabajador);
 			
 			JComboBox cbxTipoTrabajador = new JComboBox();
-			cbxTipoTrabajador.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+			cbxTipoTrabajador.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(cbxTipoTrabajador.getSelectedIndex() == 0) {
+						trabajadores = Empresa.getInstance().getMisTrabajadores();
+					}else if(cbxTipoTrabajador.getSelectedIndex() == 1) {
+						trabajadores = Empresa.getInstance().obtenerTrabajadoresPorTipo("Disenador");
+					}else if(cbxTipoTrabajador.getSelectedIndex() == 2) {
+						trabajadores = Empresa.getInstance().obtenerTrabajadoresPorTipo("JefeProyecto");
+					}else if(cbxTipoTrabajador.getSelectedIndex() == 3) {
+						trabajadores = Empresa.getInstance().obtenerTrabajadoresPorTipo("Programador");
+					}
+					else if(cbxTipoTrabajador.getSelectedIndex() == 4) {
+						trabajadores = Empresa.getInstance().obtenerTrabajadoresPorTipo("Planificador");
+					}
+					llenarTablaTrabajadores();
+				}
+			});
 			cbxTipoTrabajador.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Dise\u00F1ador", "Jefe de Proyecto", "Programador", "Planificador"}));
-			cbxTipoTrabajador.setBounds(131, 29, 124, 20);
+			cbxTipoTrabajador.setBounds(118, 29, 124, 20);
 			panel.add(cbxTipoTrabajador);
 			
 			{
 				JPanel buttonPane = new JPanel();
-				buttonPane.setForeground(SystemColor.activeCaption);
 				buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 				getContentPane().add(buttonPane, BorderLayout.SOUTH);
 				
 				JButton btnAgregar = new JButton("Agregar");
-				btnAgregar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+				btnAgregar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						RegTrabajador	worker = new RegTrabajador();
+						worker.setModal(true);
+						worker.setLocationRelativeTo(null);
+						worker.setVisible(true);
+						llenarTablaTrabajadores();
+					}
+				});
 				buttonPane.add(btnAgregar);
 	
 				JButton btnModificar = new JButton("Modificar");
-				btnModificar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+				btnModificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						modificar();
+					}
+				});
 				buttonPane.add(btnModificar);
 				{
 					JButton btnEliminar = new JButton("Eliminar");
-					btnEliminar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+					btnEliminar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							if (tableTrabajadores.getSelectedRow() != -1) {
+								int dialogResult = JOptionPane.showConfirmDialog(null,
+										"Está a punto de eliminar un registro, ¿Desea continuar?", "Confirmación",
+										JOptionPane.YES_NO_OPTION);
+								if (dialogResult == JOptionPane.YES_OPTION) {
+									eliminar();
+									trabajadores = Empresa.getInstance().getMisTrabajadores();
+									llenarTablaTrabajadores();
+									JOptionPane.showMessageDialog(null, "Trabajador eliminado exitosamente", "Información",
+											JOptionPane.INFORMATION_MESSAGE);
+								} 
+							}
+						}
+					});
 					btnEliminar.setActionCommand("OK");
 					buttonPane.add(btnEliminar);
 					getRootPane().setDefaultButton(btnEliminar);
@@ -159,7 +191,26 @@ public class ListTrabajadores extends JDialog {
 			
 			trabajadores = Empresa.getInstance().getMisTrabajadores();	
 			llenarTablaTrabajadores();
-			}	
+			}
+	
+			private void modificar() {
+			    String codigoTrabajador = (String) modeloTabla.getValueAt(tableTrabajadores.getSelectedRow(), 0);
+				RegTrabajador.trabajador = Empresa.getInstance().obtenerTrabajador(codigoTrabajador);
+				RegTrabajador trabajadorDialog = new RegTrabajador();
+				trabajadorDialog.setModal(true);
+				trabajadorDialog.setLocationRelativeTo(null);
+				trabajadorDialog.setVisible(true);
+				RegTrabajador.trabajador = null;
+				trabajadores = Empresa.getInstance().getMisTrabajadores();
+				llenarTablaTrabajadores();
+			}
+	
+			private void eliminar() {
+				String codigoTrabajador = (String) modeloTabla.getValueAt(tableTrabajadores.getSelectedRow(), 0);
+				Trabajador trabajad = Empresa.getInstance().obtenerTrabajador(codigoTrabajador);
+				Empresa.getInstance().eliminarTrabajador(trabajad);
+				
+			}
 			private void llenarTablaTrabajadores() {
 		        modeloTabla = (DefaultTableModel) tableTrabajadores.getModel();
 		        int filas = modeloTabla.getRowCount();
@@ -167,7 +218,7 @@ public class ListTrabajadores extends JDialog {
 		            modeloTabla.removeRow(i);
 		        }
 		        for(Trabajador trabajador: trabajadores){
-		            modeloTabla.addRow(new Object[]{trabajador.getIdentificador(),trabajador.getNombre(),trabajador.getClass().getName(),trabajador.getDireccion(),trabajador.getSalario()});
+		            modeloTabla.addRow(new Object[]{trabajador.getIdentificador(),trabajador.getNombre(),trabajador.getClass().getSimpleName(),trabajador.getDireccion(),trabajador.getSalario()});
 		        }
 		   }
 	}

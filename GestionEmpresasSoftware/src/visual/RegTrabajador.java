@@ -77,7 +77,7 @@ public class RegTrabajador extends JDialog {
 	private JButton buttonMin;
 	private JSpinner spinnerEdad;
 	private JComboBox comboTipo;
-	private JLabel label;
+	public static Trabajador trabajador = null;
 
 	/**
 	 * Launch the application.
@@ -102,8 +102,8 @@ public class RegTrabajador extends JDialog {
 		lenguajesDisponiblesScroll = new JScrollPane();
 		lenguajesDisponiblesScroll.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		lenguajesDisponiblesScroll.setBorder(new LineBorder(SystemColor.desktop, 1, true));
-		lenguajesSeleccionadosScroll = new JScrollPane();
 		lenguajesSeleccionadosScroll.setFont(new Font("Tahoma", Font.ITALIC, 13));
+		lenguajesSeleccionadosScroll = new JScrollPane();
 		lenguajesSeleccionadosScroll.setBorder(new LineBorder(SystemColor.desktop, 1, true));
 		lenguajesDisponiblesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		lenguajesSeleccionadosList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -444,69 +444,159 @@ public class RegTrabajador extends JDialog {
 			}
 		}
 		{
-			JButton okButton = new JButton("Registrar");
-			okButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-			okButton.setBackground(SystemColor.window);
-			okButton.setBorder(new LineBorder(SystemColor.desktop, 3, true));
-			okButton.setBounds(230, 497, 150, 23);
-			contentPanel.add(okButton);
-			okButton.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					registrarTrabajador();
-				}
-			});
-			okButton.setActionCommand("OK");
-			getRootPane().setDefaultButton(okButton);
-		}
-		{
-			label = new JLabel("X");
-			label.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent arg0) {
-					if (JOptionPane.showConfirmDialog(null, "¿Seguro que quiere cerrar la aplicación?","Confirmación",JOptionPane.YES_NO_OPTION) == 0) {
-						RegTrabajador.this.dispose();
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton okButton = new JButton("Registrar");
+				okButton.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						registrarTrabajador();
 					}
-
-				}
-				@Override
-				public void mouseEntered(MouseEvent e) {
-					label.setForeground(Color.RED);
-				}
-				public void mouseExited(MouseEvent e) {
-					label.setForeground(Color.WHITE);
-				}
-			});
-			label.setHorizontalAlignment(SwingConstants.CENTER);
-			label.setForeground(Color.WHITE);
-			label.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
-			label.setBounds(590, 0, 20, 20);
-			contentPanel.add(label);
+				});
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+					
+				});
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+			
 		}
 		llenarListaLenguajes();
+		if(trabajador != null) {
+           llenarCampos();
+		}
 	}
 	
+	private void llenarCampos() {
+		textNombre.setText(trabajador.getNombre());
+		textDireccion.setText(trabajador.getDireccion());
+		textId.setText(trabajador.getIdentificador());
+		textApellido.setText(trabajador.getApellido());
+		spinnerEdad.setValue(trabajador.getEdad());
+		textSexo.setText(trabajador.getSexo());
+		textSalario.setText(String.valueOf(trabajador.getSalario()));
+		textPagoPorHora.setText(String.valueOf(trabajador.getPrecioHora()));
+		if(trabajador instanceof JefeProyecto) { 
+			radioJefeSeleccionado();
+			rdbtnDisenador.setEnabled(false); rdbtnPlanificador.setEnabled(false); rdbtnProgramador.setEnabled(false);
+			spnCantidad.setValue(((JefeProyecto) trabajador).getCantidadTrabajadores());
+		}
+		else if(trabajador instanceof Disenador) {
+			radioDisenadorSeleccionado();
+			rdbtnJefe.setEnabled(false); rdbtnPlanificador.setEnabled(false); rdbtnProgramador.setEnabled(false);
+			comboTipo.setSelectedItem(((Disenador)trabajador).getTipo());
+		}
+		else if(trabajador instanceof Planificador) {
+			radioPlanificadorSeleccionado();
+			rdbtnDisenador.setEnabled(false); rdbtnJefe.setEnabled(false); rdbtnProgramador.setEnabled(false);
+			spnFrecuencia.setValue(((Planificador)trabajador).getFrecPlanificacionTareas());
+		}
+		else if(trabajador instanceof Programador) {
+			radioProgramadorSeleccionado();
+			rdbtnDisenador.setEnabled(false); rdbtnJefe.setEnabled(false); rdbtnPlanificador.setEnabled(false);
+		    obtenerLenguajesSeleccionados();
+			obtenerLenguajesDisponibles();
+		}
+		
+	}
+	
+	private void obtenerLenguajesSeleccionados() {
+		ArrayList<String> lenguajes = ((Programador)trabajador).getLenguajesProgramacion();
+		ProgSelect.clear();
+		for(String lenguaje:lenguajes) {
+			ProgSelect.addElement(lenguaje);
+		}
+		lenguajesSeleccionadosList.setModel(ProgSelect);
+	}
+	private void obtenerLenguajesDisponibles() {
+		lenguajesDisponiblesList.setModel(ProgDisp);
+		ArrayList<String> lenguajes = ((Programador)trabajador).getLenguajesProgramacion();
+            for(String lenguajeSeleccionado : lenguajes ) {
+				if(ProgDisp.contains(lenguajeSeleccionado)) {
+					ProgDisp.removeElement(lenguajeSeleccionado);
+				}
+			}
+		lenguajesDisponiblesList.setModel(ProgDisp);
+	}
 	private void registrarTrabajador() {
 		if(validarCampos()) {
-			Trabajador trabajador = null;
-			if(rdbtnJefe.isSelected()) {
-				trabajador = new JefeProyecto(textId.getText(),textNombre.getText(),textApellido.getText(),textDireccion.getText(), (int)spinnerEdad.getValue(), textSexo.getText(), Float.parseFloat(textSalario.getText()),"sin evaluar",Double.parseDouble(textPagoPorHora.getText()), (int)spnCantidad.getValue());
-				
-			}else if(rdbtnDisenador.isSelected()) {
-				trabajador = new Disenador(textId.getText(),textNombre.getText(),textApellido.getText(),textDireccion.getText(), (int)spinnerEdad.getValue(), textSexo.getText(), Float.parseFloat(textSalario.getText()),"sin evaluar",Double.parseDouble(textPagoPorHora.getText()), comboTipo.getSelectedItem().toString());
-			}else if(rdbtnPlanificador.isSelected()) {
-				trabajador  = new Planificador(textId.getText(),textNombre.getText(),textApellido.getText(),textDireccion.getText(), (int)spinnerEdad.getValue(), textSexo.getText(), Float.parseFloat(textSalario.getText()),"sin evaluar",Double.parseDouble(textPagoPorHora.getText()), (int)spnFrecuencia.getValue());
-			}else if(rdbtnProgramador.isSelected()) {
-				ArrayList<String> listadoLenguajes = new ArrayList<String>();
-				for(int i=0; i<lenguajesSeleccionadosList.getModel().getSize();i++) {
-					listadoLenguajes.add(lenguajesSeleccionadosList.getModel().getElementAt(i));
+			
+			if (trabajador == null) {
+				Trabajador worker = null;
+				if (rdbtnJefe.isSelected()) {
+					worker = new JefeProyecto(textId.getText(), textNombre.getText(), textApellido.getText(),
+							textDireccion.getText(), (int) spinnerEdad.getValue(), textSexo.getText(),
+							Float.parseFloat(textSalario.getText()), "sin evaluar",
+							Double.parseDouble(textPagoPorHora.getText()), (int) spnCantidad.getValue());
+
+				} else if (rdbtnDisenador.isSelected()) {
+					worker = new Disenador(textId.getText(), textNombre.getText(), textApellido.getText(),
+							textDireccion.getText(), (int) spinnerEdad.getValue(), textSexo.getText(),
+							Float.parseFloat(textSalario.getText()), "sin evaluar",
+							Double.parseDouble(textPagoPorHora.getText()), comboTipo.getSelectedItem().toString());
+				} else if (rdbtnPlanificador.isSelected()) {
+					worker = new Planificador(textId.getText(), textNombre.getText(), textApellido.getText(),
+							textDireccion.getText(), (int) spinnerEdad.getValue(), textSexo.getText(),
+							Float.parseFloat(textSalario.getText()), "sin evaluar",
+							Double.parseDouble(textPagoPorHora.getText()), (int) spnFrecuencia.getValue());
+				} else if (rdbtnProgramador.isSelected()) {
+					ArrayList<String> listadoLenguajes = new ArrayList<String>();
+					for (int i = 0; i < lenguajesSeleccionadosList.getModel().getSize(); i++) {
+						listadoLenguajes.add(lenguajesSeleccionadosList.getModel().getElementAt(i));
+					}
+					worker = new Programador(textId.getText(), textNombre.getText(), textApellido.getText(),
+							textDireccion.getText(), (int) spinnerEdad.getValue(), textSexo.getText(),
+							Float.parseFloat(textSalario.getText()), "sin evaluar",
+							Double.parseDouble(textPagoPorHora.getText()), listadoLenguajes);
 				}
-				trabajador = new Programador(textId.getText(),textNombre.getText(),textApellido.getText(),textDireccion.getText(), (int)spinnerEdad.getValue(), textSexo.getText(), Float.parseFloat(textSalario.getText()),"sin evaluar",Double.parseDouble(textPagoPorHora.getText()), listadoLenguajes);
+				Empresa.getInstance().RegistrarTrabajador(worker);
+				JOptionPane.showMessageDialog(null, "Trabajador registrado exitosamente", "Información",
+						JOptionPane.INFORMATION_MESSAGE);
+				limpiarCampos();
+			}else {
+				trabajador.setNombre(textNombre.getText());
+				trabajador.setDireccion(textDireccion.getText());
+				trabajador.setIdentificador(textId.getText());
+				trabajador.setEdad((int)spinnerEdad.getValue());
+				trabajador.setSalario(Float.parseFloat(textSalario.getText()));
+				trabajador.setPrecioHora(Double.parseDouble(textPagoPorHora.getText()));
+				trabajador.setSexo(textSexo.getText());
+				if(rdbtnJefe.isSelected()) {
+					JefeProyecto jefeTemp = (JefeProyecto) trabajador;
+					jefeTemp.setCantidadTrabajadores((int)spnCantidad.getValue());
+				}else if(rdbtnDisenador.isSelected()) {
+					Disenador disenadorTemp = (Disenador) trabajador;
+					disenadorTemp.setTipo(String.valueOf(comboTipo.getSelectedItem()));
+				}else if(rdbtnPlanificador.isSelected()) {
+					Planificador planificadorTemp = (Planificador) trabajador;
+					planificadorTemp.setFrecPlanificacionTareas((int)spnFrecuencia.getValue());
+				}else if(rdbtnProgramador.isSelected()) {
+					ArrayList<String> listadoLenguajes = new ArrayList<String>();
+					for (int i = 0; i < lenguajesSeleccionadosList.getModel().getSize(); i++) {
+						listadoLenguajes.add(lenguajesSeleccionadosList.getModel().getElementAt(i));
+					}
+					Programador programadorTemp = (Programador) trabajador;
+					programadorTemp.setLenguajesProgramacion(listadoLenguajes);
+				}
+	            
+				limpiarCampos();;
+				Empresa.getInstance().escribirDatos();
+				trabajador = null;
+				JOptionPane.showMessageDialog(null, "Trabajador actualizado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+				dispose();
 			}
-			Empresa.getInstance().RegistrarTrabajador(trabajador);
-			JOptionPane.showMessageDialog(null, "Trabajador registrado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-		    limpiarCampos();
 		}
 	}
 	
@@ -576,7 +666,7 @@ public class RegTrabajador extends JDialog {
 			mensajeValidacion += "*El identificador es necesario\n";
 			datosValidos = false;
 		}
-		else if(Empresa.getInstance().existeIdTrabajador(textId.getText())) {
+		else if(Empresa.getInstance().existeIdTrabajador(textId.getText()) && trabajador == null) {
 			mensajeValidacion += "*El identificador ya ha sido utilizado\n";
 			datosValidos = false;
 		}
@@ -642,5 +732,49 @@ public class RegTrabajador extends JDialog {
 		ProgDisp.addElement("Php");
 		ProgDisp.addElement("JavaScript");
 		ProgDisp.addElement("Assembler");
+	}
+	
+	private void radioDisenadorSeleccionado() {
+		PanelDiseñador.setVisible(true);
+		panelProgramador.setVisible(false);
+		PanelJefe.setVisible(false);
+		PanelPlanificador.setVisible(false);			
+		rdbtnDisenador.setSelected(true);
+		rdbtnJefe.setSelected(false);
+		rdbtnProgramador.setSelected(false);
+		rdbtnPlanificador.setSelected(false);
+	}
+	
+	private void radioProgramadorSeleccionado() {
+		PanelDiseñador.setVisible(false);
+		panelProgramador.setVisible(true);
+		PanelJefe.setVisible(false);
+		PanelPlanificador.setVisible(false);			
+		rdbtnDisenador.setSelected(false);
+		rdbtnJefe.setSelected(false);
+		rdbtnProgramador.setSelected(true);
+		rdbtnPlanificador.setSelected(false);
+	}
+	
+	private void radioPlanificadorSeleccionado() {
+		PanelDiseñador.setVisible(false);
+		panelProgramador.setVisible(false);
+		PanelJefe.setVisible(false);
+		PanelPlanificador.setVisible(true);			
+		rdbtnDisenador.setSelected(false);
+		rdbtnJefe.setSelected(false);
+		rdbtnProgramador.setSelected(false);
+		rdbtnPlanificador.setSelected(true);
+	}
+	
+	private void radioJefeSeleccionado() {
+		PanelDiseñador.setVisible(false);
+		panelProgramador.setVisible(false);
+		PanelJefe.setVisible(true);
+		PanelPlanificador.setVisible(false);			
+		rdbtnDisenador.setSelected(false);
+		rdbtnJefe.setSelected(true);
+		rdbtnProgramador.setSelected(false);
+		rdbtnPlanificador.setSelected(false);
 	}
 }

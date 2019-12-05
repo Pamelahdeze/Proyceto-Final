@@ -89,7 +89,16 @@ public class Empresa {
 		misTrabajadores.add(aux);
 		escribirDatos();
 	}
-	
+	public Trabajador obtenerTrabajador(String id) {
+		Trabajador trabajadorResultante = null;
+		for (Trabajador trabajador : this.misTrabajadores) {
+			 if(trabajador.getIdentificador().equals(id)) {
+				 trabajadorResultante = trabajador;
+				 break;
+			 }
+		}
+		return trabajadorResultante;
+	}
 	public ArrayList<Trabajador> obtenerTrabajadoresPorTipo(String clase){
 		ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
 		for (Trabajador trabajador : this.misTrabajadores) {
