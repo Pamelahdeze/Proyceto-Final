@@ -68,7 +68,7 @@ public class RegProyecto extends JDialog {
 	 */
 	public RegProyecto() {
 		//setUndecorated(true);
-		setBounds(100, 100, 508, 475);
+		setBounds(100, 100, 511, 210);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.activeCaption);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
