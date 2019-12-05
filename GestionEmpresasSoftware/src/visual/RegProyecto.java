@@ -62,11 +62,12 @@ public class RegProyecto extends JDialog {
 		}
 	}
 
+	//No me deja
 	/**
 	 * Create the dialog.
 	 */
 	public RegProyecto() {
-		//setUndecorated(true);
+		setUndecorated(true);
 		setBounds(100, 100, 508, 475);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.activeCaption);
