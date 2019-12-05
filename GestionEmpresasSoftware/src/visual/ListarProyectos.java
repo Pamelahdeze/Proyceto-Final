@@ -58,14 +58,14 @@ public class ListarProyectos extends JDialog {
 				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addGap(47)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 489, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(48, Short.MAX_VALUE))
+					.addContainerGap(55, Short.MAX_VALUE))
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(33)
+				.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
+					.addContainerGap(37, Short.MAX_VALUE)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(39, Short.MAX_VALUE))
+					.addGap(32))
 		);
 		
 		table = new JTable();

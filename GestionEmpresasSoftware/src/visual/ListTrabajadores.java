@@ -179,7 +179,7 @@ public class ListTrabajadores extends JDialog {
 				label.setHorizontalAlignment(SwingConstants.CENTER);
 				label.setForeground(Color.WHITE);
 				label.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
-				label.setBounds(656, 11, 20, 20);
+				label.setBounds(656, 6, 20, 20);
 				contentPanel.add(label);
 	
 				JButton btnModificar = new JButton("Modificar");

@@ -72,7 +72,7 @@ public class ListarUsuarios extends JDialog {
 			JPanel panel = new JPanel();
 			panel.setBackground(SystemColor.controlHighlight);
 			panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Listado de Usuarios", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel.setBounds(10, 34, 555, 298);
+			panel.setBounds(10, 42, 555, 298);
 			contentPanel.add(panel);
 			
 			JLabel lblBuscar = new JLabel("Buscar (nombre):");
