@@ -54,7 +54,7 @@ public class RegistrarContrato extends JDialog {
 	 */
 	public RegistrarContrato() {
 		setTitle("Registrar Contrato");
-		setBounds(100, 100, 571, 343);
+		setBounds(100, 100, 571, 288);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.activeCaption);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -65,12 +65,12 @@ public class RegistrarContrato extends JDialog {
 		{
 			JLabel lblIDContrato = new JLabel("ID Contrato:");
 			lblIDContrato.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-			lblIDContrato.setBounds(21, 68, 116, 18);
+			lblIDContrato.setBounds(21, 43, 116, 18);
 			contentPanel.add(lblIDContrato);
 		}
 		{
 			txtIdContrato = new JTextField();
-			txtIdContrato.setBounds(159, 66, 182, 20);
+			txtIdContrato.setBounds(147, 44, 202, 20);
 			contentPanel.add(txtIdContrato);
 			txtIdContrato.setColumns(10);
 			txtIdContrato.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.activeCaptionText));
@@ -78,46 +78,44 @@ public class RegistrarContrato extends JDialog {
 		{
 			JLabel lblFechaInicial = new JLabel("Fecha Inicial:");
 			lblFechaInicial.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-			lblFechaInicial.setBounds(21, 122, 116, 18);
+			lblFechaInicial.setBounds(21, 104, 116, 18);
 			contentPanel.add(lblFechaInicial);
 		}
 		{
 			JLabel lblFechaEntrega = new JLabel("Fecha Entrega:");
 			lblFechaEntrega.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-			lblFechaEntrega.setBounds(21, 176, 116, 18);
+			lblFechaEntrega.setBounds(21, 165, 116, 18);
 			contentPanel.add(lblFechaEntrega);
 		}
 		{
 			JLabel lblIdCliente = new JLabel("ID Cliente:");
 			lblIdCliente.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-			lblIdCliente.setBounds(21, 227, 116, 18);
+			lblIdCliente.setBounds(21, 226, 116, 18);
 			contentPanel.add(lblIdCliente);
 		}
 		{
 			txtIdCliente = new JTextField();
 			txtIdCliente.setColumns(10);
-			txtIdCliente.setBounds(159, 227, 182, 20);
+			txtIdCliente.setBounds(147, 227, 202, 20);
 			contentPanel.add(txtIdCliente);
 			txtIdCliente.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.activeCaptionText));
 		}
 		
 		JFormattedTextField ftxtFechaInicial = new JFormattedTextField();
-		ftxtFechaInicial.setBounds(159, 120, 182, 20);
+		ftxtFechaInicial.setBounds(147, 105, 202, 20);
 		contentPanel.add(ftxtFechaInicial);
 		ftxtFechaInicial.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.activeCaptionText));
 		
 		JFormattedTextField ftxtFechaEntrega = new JFormattedTextField();
-		ftxtFechaEntrega.setBounds(159, 174, 182, 20);
+		ftxtFechaEntrega.setBounds(147, 166, 202, 20);
 		contentPanel.add(ftxtFechaEntrega);
 		ftxtFechaEntrega.setBorder(new MatteBorder(0, 0, 2, 0, (Color) SystemColor.activeCaptionText));
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.controlHighlight);
-		panel.setBounds(359, 0, 212, 343);
+		panel.setBackground(SystemColor.controlShadow);
+		panel.setBounds(359, 0, 212, 288);
 		contentPanel.add(panel);
 		panel.setLayout(null);
-		
-		JButton button = new JButton("Registrar");
 		//button.addActionListener(new ActionListener() {
 		/*public void actionPerformed(ActionEvent e) {
 				if(validarCamposContrato())
@@ -143,31 +141,44 @@ public class RegistrarContrato extends JDialog {
 				}
 				
 			}*/
-		//});
-		button.setFont(new Font("Tahoma", Font.BOLD, 13));
-		button.setActionCommand("OK");
-		button.setBounds(37, 307, 146, 25);
-		panel.add(button);
-		button.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
 		
 		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setIcon(new ImageIcon(RegistrarContrato.class.getResource("/imagenes/policy.png")));
-		lblNewLabel.setBounds(30, 24, 192, 272);
+		lblNewLabel.setBounds(10, 5, 192, 236);
 		panel.add(lblNewLabel);
 		
-		JLabel close = new JLabel("X");
-		close.setBounds(156, 11, 46, 14);
-		panel.add(close);
-		close.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		close.setHorizontalAlignment(SwingConstants.CENTER);
-		close.addMouseListener(new MouseAdapter() {
+		JLabel label = new JLabel("X");
+		label.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				dispose();
+				if (JOptionPane.showConfirmDialog(null, "¿Seguro que quiere cerrar la aplicación?","Confirmación",JOptionPane.YES_NO_OPTION) == 0) {
+					RegistrarContrato.this.dispose();
+				}
+
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				label.setForeground(Color.RED);
+			}
+			public void mouseExited(MouseEvent e) {
+				label.setForeground(Color.WHITE);
 			}
 		});
-		close.setForeground(SystemColor.desktop);
-		close.setFont(new Font("Tahoma", Font.BOLD, 15));
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setForeground(Color.WHITE);
+		label.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
+		label.setBounds(192, 0, 20, 20);
+		panel.add(label);
+		
+		JButton button = new JButton("Registrar");
+		button.setBounds(10, 252, 192, 25);
+		panel.add(button);
+		button.setBackground(SystemColor.window);
+		//});
+		button.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		button.setActionCommand("OK");
+		button.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
 		
 		
 		/*private boolean validarCamposContrato() {
