@@ -105,22 +105,8 @@ public class RegistrarCliente extends JDialog {
 		spinnerCantidad.setBounds(211, 200, 100, 20);
 		contentPanel.add(spinnerCantidad);
 		
-		JLabel close = new JLabel("X");
-		close.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		close.setHorizontalAlignment(SwingConstants.CENTER);
-		close.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				dispose();
-			}
-		});
-		close.setForeground(Color.WHITE);
-		close.setFont(new Font("Tahoma", Font.BOLD, 15));
-		close.setBounds(424, 11, 46, 14);
-		contentPanel.add(close);
-		
 		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.controlHighlight);
+		panel.setBackground(SystemColor.controlShadow);
 		panel.setBounds(0, 0, 178, 256);
 		contentPanel.add(panel);
 		panel.setLayout(null);
@@ -133,6 +119,7 @@ public class RegistrarCliente extends JDialog {
 		panel.add(lblNewLabel);
 		{
 			JButton okButton = new JButton("Registrar");
+			okButton.setForeground(SystemColor.desktop);
 			okButton.setBackground(SystemColor.activeCaption);
 			okButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			okButton.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -201,6 +188,29 @@ public class RegistrarCliente extends JDialog {
 		contentPanel.add(lblDireccin);
 		lblDireccin.setForeground(SystemColor.desktop);
 		lblDireccin.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		
+		JLabel label = new JLabel("X");
+		label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if (JOptionPane.showConfirmDialog(null, "¿Seguro que quiere cerrar la aplicación?","Confirmación",JOptionPane.YES_NO_OPTION) == 0) {
+					RegistrarCliente.this.dispose();
+				}
+
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				label.setForeground(Color.RED);
+			}
+			public void mouseExited(MouseEvent e) {
+				label.setForeground(Color.WHITE);
+			}
+		});
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setForeground(Color.WHITE);
+		label.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
+		label.setBounds(450, 0, 20, 20);
+		contentPanel.add(label);
 		
 		if(cliente != null) {
 	    	llenarCampos();
